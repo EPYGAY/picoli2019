@@ -18,8 +18,12 @@ public class Estado {
 	public void contartarTrabajador() {
 		//TODO
 	}
-
-	public void despedirTrabajador() {
+	
+	public void nacimiento() {
+		//TODO
+	}
+	
+	public void desempleo() {
 		//TODO
 	}
 
@@ -35,14 +39,17 @@ public class Estado {
 		//TODO
 	}
 	
-	public void comprobarSueldo() {
+	public void comprobarCapital() {
 		//TODO
 	}
 	
 	public void pagarSubsidio() {
 		//TODO
 	}
-
+	
+	public void jubilar() {
+		//TODO
+	}
 
 
 }
