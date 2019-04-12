@@ -58,6 +58,7 @@ public class UI extends JFrame {
 		contentPane.setLayout(new MigLayout("", "[grow][grow]", "[grow][grow]"));
 		
 		pnlPoblacion = new JPanel();
+		pnlPoblacion.setBackground(new Color(244, 164, 96));
 		contentPane.add(pnlPoblacion, "cell 0 0,grow");
 		pnlPoblacion.setLayout(new MigLayout("", "[][][][]", "[][][][][][][][][][][][][][][][][][][][][][]"));
 		
@@ -74,6 +75,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblHabitantes, "cell 1 3,alignx trailing");
 		
 		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setEditable(false);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField, "cell 3 3");
 		textField.setColumns(10);
@@ -83,6 +86,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblMenores, "cell 1 5,alignx trailing");
 		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
+		textField_1.setEditable(false);
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_1, "cell 3 5");
 		textField_1.setColumns(10);
@@ -92,6 +97,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblTrabjadores, "cell 1 7,alignx trailing");
 		
 		textField_2 = new JTextField();
+		textField_2.setEnabled(false);
+		textField_2.setEditable(false);
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_2, "cell 3 7");
 		textField_2.setColumns(10);
@@ -101,6 +108,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblJubilados, "cell 1 9,alignx trailing");
 		
 		textField_3 = new JTextField();
+		textField_3.setEnabled(false);
+		textField_3.setEditable(false);
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_3, "cell 3 9");
 		textField_3.setColumns(10);
@@ -114,6 +123,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblNacimientos, "cell 1 14,alignx trailing");
 		
 		textField_4 = new JTextField();
+		textField_4.setEnabled(false);
+		textField_4.setEditable(false);
 		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_4, "cell 3 14");
 		textField_4.setColumns(10);
@@ -123,6 +134,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblFallecimientos, "cell 1 16,alignx trailing");
 		
 		textField_5 = new JTextField();
+		textField_5.setEnabled(false);
+		textField_5.setEditable(false);
 		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_5, "cell 3 16");
 		textField_5.setColumns(10);
@@ -132,6 +145,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblJubilaciones, "cell 1 18,alignx trailing");
 		
 		textField_6 = new JTextField();
+		textField_6.setEnabled(false);
+		textField_6.setEditable(false);
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_6, "cell 3 18");
 		textField_6.setColumns(10);
@@ -141,6 +156,8 @@ public class UI extends JFrame {
 		pnlPoblacion.add(lblNuevosTrabjadores, "cell 1 20,alignx trailing");
 		
 		textField_7 = new JTextField();
+		textField_7.setEnabled(false);
+		textField_7.setEditable(false);
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlPoblacion.add(textField_7, "cell 3 20");
 		textField_7.setColumns(10);
@@ -181,6 +198,7 @@ public class UI extends JFrame {
 		btnNewButton_1.setBorder(new LineBorder(new Color(0, 0, 0), 7, true));
 		
 		pnlEstadoLocal = new JPanel();
+		pnlEstadoLocal.setBackground(new Color(143, 188, 143));
 		contentPane.add(pnlEstadoLocal, "cell 0 1,grow");
 		pnlEstadoLocal.setLayout(new MigLayout("", "[][][][][][]", "[][][][][][][][][][][][]"));
 		
@@ -201,11 +219,15 @@ public class UI extends JFrame {
 		pnlEstadoLocal.add(lblPequeas, "cell 1 4,alignx trailing");
 		
 		textField_8 = new JTextField();
+		textField_8.setEditable(false);
+		textField_8.setEnabled(false);
 		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_8, "flowx,cell 3 4");
 		textField_8.setColumns(10);
 		
 		textField_11 = new JTextField();
+		textField_11.setEnabled(false);
+		textField_11.setEditable(false);
 		textField_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_11, "cell 5 4");
 		textField_11.setColumns(10);
@@ -215,11 +237,15 @@ public class UI extends JFrame {
 		pnlEstadoLocal.add(lblMedianas, "cell 1 6,alignx trailing");
 		
 		textField_9 = new JTextField();
+		textField_9.setEditable(false);
+		textField_9.setEnabled(false);
 		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_9, "cell 3 6");
 		textField_9.setColumns(10);
 		
 		textField_12 = new JTextField();
+		textField_12.setEnabled(false);
+		textField_12.setEditable(false);
 		textField_12.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_12, "cell 5 6");
 		textField_12.setColumns(10);
@@ -229,16 +255,21 @@ public class UI extends JFrame {
 		pnlEstadoLocal.add(lblGrandes, "cell 1 8,alignx trailing");
 		
 		textField_10 = new JTextField();
+		textField_10.setEnabled(false);
+		textField_10.setEditable(false);
 		textField_10.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_10, "cell 3 8");
 		textField_10.setColumns(10);
 		
 		textField_13 = new JTextField();
+		textField_13.setEnabled(false);
+		textField_13.setEditable(false);
 		textField_13.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(textField_13, "cell 5 8");
 		textField_13.setColumns(10);
 		
 		pnlEstadoGlobal = new JPanel();
+		pnlEstadoGlobal.setBackground(new Color(245, 222, 179));
 		contentPane.add(pnlEstadoGlobal, "cell 1 1,grow");
 		pnlEstadoGlobal.setLayout(new MigLayout("", "[][][][]", "[][][][][][][][][][][][][][][][][][]"));
 		
@@ -255,6 +286,8 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblNewLabel, "cell 1 3,alignx trailing,aligny center");
 		
 		textField_14 = new JTextField();
+		textField_14.setEnabled(false);
+		textField_14.setEditable(false);
 		textField_14.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoGlobal.add(textField_14, "cell 3 3,growx");
 		textField_14.setColumns(10);
@@ -264,6 +297,8 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblNewLabel_1, "cell 1 5");
 		
 		textField_15 = new JTextField();
+		textField_15.setEnabled(false);
+		textField_15.setEditable(false);
 		textField_15.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoGlobal.add(textField_15, "cell 3 5,growx");
 		textField_15.setColumns(10);
@@ -273,6 +308,8 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblNewLabel_2, "cell 1 7,alignx trailing,aligny top");
 		
 		textField_16 = new JTextField();
+		textField_16.setEnabled(false);
+		textField_16.setEditable(false);
 		textField_16.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoGlobal.add(textField_16, "cell 3 7,growx");
 		textField_16.setColumns(10);
@@ -286,6 +323,8 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblNewLabel_3, "cell 1 13,alignx trailing");
 		
 		textField_17 = new JTextField();
+		textField_17.setEnabled(false);
+		textField_17.setEditable(false);
 		textField_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoGlobal.add(textField_17, "cell 3 13,growx");
 		textField_17.setColumns(10);
