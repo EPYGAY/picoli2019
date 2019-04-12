@@ -2,9 +2,6 @@ package control;
 
 public class Estado {
 	
-	private String nombre;
-	private int identificador,NV=365,ahorro,edad,edadMax;
-	private float salario;
 	
 	public void pasarAnno() {
 
