@@ -1,5 +1,7 @@
 package modelo.control;
 
-public enum TipoEmpresa {
+public enum TipoEmpresa {	
+	
+	pequeña,mediana,grande
 
 }
