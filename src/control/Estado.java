@@ -1,6 +1,10 @@
 package control;
 
+import modelo.control.SeresVivos;
+
 public class Estado {
+	
+	SeresVivos persona=new SeresVivos();
 	
 	
 	public void pasarAnno() {
@@ -47,8 +51,11 @@ public class Estado {
 		//TODO
 	}
 	
-	public void jubilar() {
-		//TODO
+	public boolean jubilar(int edad) {
+		if(edad>=65) {
+			return true;
+		}
+		return false;
 	}
 
 
