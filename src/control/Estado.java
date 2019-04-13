@@ -75,16 +75,17 @@ public class Estado {
 	public boolean reducirVida() {
 		if (sueldo<365 && sueldo>182.5f) {
 			sueldo=sueldo-182.5f;
-			edadMax=(0.5f*sueldo)/182.5f;
+			edadMax=edadMax-((0.5f*sueldo)/182.5f);
 			persona.setEdadMax(edadMax);
-			System.out.println("1");
+			System.out.println(edadMax);
 			return true;
 		}else if (sueldo<182.5f) {
-			persona.setEdadMax(edadMax-0.5f);
-			System.out.println("2");
+			edadMax=edadMax-0.5f;
+			persona.setEdadMax(edadMax);
+			System.out.println(edadMax);
 			return true;
 		}
-		System.out.println("3");
+		System.out.println(edadMax);
 		return false;
 	}
 	@Test
@@ -105,6 +106,7 @@ public class Estado {
 	}
 	@Test
 	void testReducirVida() {
+		edadMax=90;
 		sueldo=364;
 		assertTrue(reducirVida());
 		sueldo=183;
