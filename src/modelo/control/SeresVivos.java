@@ -2,11 +2,54 @@ package modelo.control;
 
 public class SeresVivos {
 
-	public int getAhorro() {
+	
+
+	private String nombre;
+	private int identificador, NV = 365;
+	private float salario,edadMax, ahorro, edad;
+
+	private TipoSerVivo tipo;
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
+
+	public float getEdad() {
+		return edad;
+	}
+
+	public void setEdad(float edad) {
+		this.edad = edad;
+	}
+
+	public float getEdadMax() {
+		return edadMax;
+	}
+
+	public void setEdadMax(float edadMax) {
+		this.edadMax = edadMax;
+	}
+
+	public void calcularSalario() {
+		//TODO
+	}
+	
+	public void calcularEdadMax() {
+		//TODO
+	}
+	
+	public void calcularAhorros() {
+		//TODO
+	}
+	public float getAhorro() {
 		return ahorro;
 	}
 
-	public void setAhorro(int ahorro) {
+	public void setAhorro(float ahorro) {
 		this.ahorro = ahorro;
 	}
 
@@ -24,47 +67,6 @@ public class SeresVivos {
 
 	public void setTipo(TipoSerVivo tipo) {
 		this.tipo = tipo;
-	}
-
-	private String nombre;
-	private int identificador, NV = 365, ahorro, edad, edadMax;
-	private float salario;
-	private TipoSerVivo tipo;
-
-	public int getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(int identificador) {
-		this.identificador = identificador;
-	}
-
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
-	}
-
-	public int getEdadMax() {
-		return edadMax;
-	}
-
-	public void setEdadMax(int edadMax) {
-		this.edadMax = edadMax;
-	}
-
-	public void calcularSalario() {
-		//TODO
-	}
-	
-	public void calcularEdadMax() {
-		//TODO
-	}
-	
-	public void calcularAhorros() {
-		//TODO
 	}
 
 }
