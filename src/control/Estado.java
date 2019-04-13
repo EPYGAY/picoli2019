@@ -67,7 +67,7 @@ public class Estado {
 	}
 	
 	public boolean morir() {
-		if (edad<=edadMax) {
+		if (edad>=edadMax) {
 			return true;
 		}
 		return false;
@@ -97,9 +97,9 @@ public class Estado {
 	}
 	@Test
 	void testMorir() {
+		edadMax=64.5f;
 		edad=64;
-		assertFalse(morir());
-		edadMax=70;
+		assertFalse(morir());		
 		edad=65;
 		assertTrue(morir());
 	}
