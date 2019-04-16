@@ -39,11 +39,11 @@ public class Estado {
 		//TODO
 	}
 
-	public void aumentarNacimiento() {
+	public void aumentarProducion() {
 		//TODO
 	}
 
-	public void disminuirNacimiento() {
+	public void disminuirProducion() {
 		//TODO
 	}
 	
