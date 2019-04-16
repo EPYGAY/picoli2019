@@ -8,6 +8,8 @@ import vista.Comunicador;
 import vista.UI;
 
 public class ParaUI extends UI {
+	
+	Estado estado=new Estado();
 
 	public void setDatosEnElInterfazUsuario(DatosPoblacion datosPoblacion,DatosEstadoLocal datosEstadoLocal,DatosEstadoGlobal datosEstadoGlobal ) {
 		rellenarComunicador(comunicadorPoblacion, datosPoblacion);
