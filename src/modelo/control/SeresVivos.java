@@ -35,13 +35,12 @@ public class SeresVivos {
 	}
 
 	public void calcularSueldo(float sueldo, float dineroEstado) {
-		switch (tipo) {
-		case desempleado:
+		if (tipo == tipo.desempleado) {
 			float NVconsueldo = NV - sueldo;
 			this.ahorro -= NVconsueldo;
 			ahorroinsuficiente();
-			break;
-		case jubilado:
+		}
+		if (tipo == tipo.jubilado) {
 			if (this.ahorro > NV / 2) {
 				this.ahorro -= NV / 2;
 			} else {
@@ -56,13 +55,13 @@ public class SeresVivos {
 					ahorroinsuficiente();
 				}
 			}
-			break;
-		case menor:
+		}
+		if (tipo == tipo.menor) {
 			if (this.NV > sueldo) {
 				// Pierde vida
 			}
-			break;
-		case trabajador:
+		}
+		if (tipo == tipo.trabajador) {
 			if (sueldo >= NV) {
 				sueldo -= NV;
 				if (sueldo < 0) {
@@ -75,22 +74,18 @@ public class SeresVivos {
 				float falta = NV - sueldo;
 				if (falta > this.ahorro) {
 					dineroEstado -= NV / 2;
-					if (falta > this.ahorro + NV/2) {
+					if (falta > this.ahorro + NV / 2) {
 						this.ahorro += NV / 2;
 					}
 					this.ahorro -= falta;
 				}
 				ahorroinsuficiente();
 			}
-			// si cobra suficiente paga el nv , y lo que le sobra mitad dineroestado y la
-			// otra ahorro
-			// si no cobra lo suficiente ese ayuda de los ahorrosç
-			// si no puede pagar el NV le ayuda el estado
-
-			break;
-		default:
-			break;
 		}
+		// si cobra suficiente paga el nv , y lo que le sobra mitad dineroestado y la
+		// otra ahorro
+		// si no cobra lo suficiente ese ayuda de los ahorrosç
+		// si no puede pagar el NV le ayuda el estado
 	}
 
 	private void ahorroinsuficiente() {
@@ -106,7 +101,7 @@ public class SeresVivos {
 	}
 
 	public void calcularAhorros(float dinero) {
-		this.ahorro+= dinero;
+		this.ahorro += dinero;
 	}
 
 	public float getAhorro() {
