@@ -2,8 +2,6 @@ package modelo.control;
 
 public class SeresVivos {
 
-	
-
 	private String nombre;
 	private int identificador, NV = 365;
 	private float salario,edadMax, ahorro, edad;
