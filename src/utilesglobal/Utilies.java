@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Utilies {
 
-	public int obtenerAleatorio(int max) {
+	public static int obtenerAleatorio(int max) {
 		return new Random().nextInt(max+1);
 	}
 	
