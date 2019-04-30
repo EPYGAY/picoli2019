@@ -8,7 +8,7 @@ public class Utilies {
 		return new Random().nextInt(max+1);
 	}
 	
-	public int obtenerAleatorio(int min,int max) {
+	public static int obtenerAleatorio(int min,int max) {
 		return min+obtenerAleatorio(max-min);
 	}
 }

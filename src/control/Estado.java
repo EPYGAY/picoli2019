@@ -1,86 +1,115 @@
 package control;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import modelo.control.SeresVivos;
+import modelo.control.SerVivo;
 
 public class Estado {
 	
-	private SeresVivos persona=new SeresVivos();
-	private float edad=persona.getEdad(), edadMax=persona.getEdadMax(), sueldo=persona.getSalario();
-	private int nv=365;
-	
-	
+	//trabajador el primera que entra el ultimo que sale
+	//menores primeros en nacer primeros en salir
+	//desempleados igual (si su nv baja 5 años consecutivos sube ne la lista)
+	//jubilados depende de la edadmax
+
+
+	public void aplicarPeriodo() {
+
+	}
+
+	public void producir() {
+
+	}
+
+	public void cobrarImpuestos() {
+
+	}
+
+	public void pagarSubsidio() {
+
+	}
+
+	public void envejecer() {
+
+	}
+
 	public void pasarAnno() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void crearEmpresa() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void destruirEmpresa() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void contartarTrabajador() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void nacimiento() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void desempleo() {
-		//TODO
+		// TODO
 	}
 
 	public void aumentarProducion() {
-		//TODO
+		// TODO
 	}
 
 	public void disminuirProducion() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void recolectarCapital() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void comprobarCapital() {
-		//TODO
+		// TODO
 	}
-	
-	public void pagarSubsidio() {
-		//TODO
+	public float pagarTrabajador() {
+		return 0;
+		
 	}
-	
-	public boolean jubilar() {
-		if(edad>=65) {
+	public float pagarMenor() {
+		return 0;
+		
+	}
+	public float pagarJubilado() {
+		return 0;
+		
+	}
+
+/*	public boolean jubilar() {
+		if (edad >= 65) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean morir() {
-		if (edad>=edadMax) {
+		if (edad >= edadMax) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean reducirVida() {
-		if (sueldo<365 && sueldo>182.5f) {
-			sueldo=sueldo-182.5f;
-			edadMax=edadMax-((0.5f*sueldo)/182.5f);
+		if (sueldo < 365 && sueldo > 182.5f) {
+			sueldo = sueldo - 182.5f;
+			edadMax = edadMax - ((0.5f * sueldo) / 182.5f);
 			persona.setEdadMax(edadMax);
 			System.out.println(edadMax);
 			return true;
-		}else if (sueldo<182.5f) {
-			edadMax=edadMax-0.5f;
+		} else if (sueldo < 182.5f) {
+			edadMax = edadMax - 0.5f;
 			persona.setEdadMax(edadMax);
 			System.out.println(edadMax);
 			return true;
@@ -88,32 +117,35 @@ public class Estado {
 		System.out.println(edadMax);
 		return false;
 	}
+
 	@Test
 	void testJubilar() {
-		edad=64;
+		edad = 64;
 		assertFalse(jubilar());
-		edad=65;
+		edad = 65;
 		assertTrue(jubilar());
-	
+
 	}
+
 	@Test
 	void testMorir() {
-		edadMax=64.5f;
-		edad=64;
-		assertFalse(morir());		
-		edad=65;
+		edadMax = 64.5f;
+		edad = 64;
+		assertFalse(morir());
+		edad = 65;
 		assertTrue(morir());
 	}
+
 	@Test
 	void testReducirVida() {
-		edadMax=90;
-		sueldo=364;
+		edadMax = 90;
+		sueldo = 364;
 		assertTrue(reducirVida());
-		sueldo=183;
+		sueldo = 183;
 		assertTrue(reducirVida());
-		sueldo=182;
+		sueldo = 182;
 		assertTrue(reducirVida());
-		sueldo=365;
+		sueldo = 365;
 		assertFalse(reducirVida());
-	}
+	}*/
 }
