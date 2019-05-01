@@ -1,11 +1,16 @@
 package modelo.control;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 import javax.sound.midi.Track;
+
+import org.junit.jupiter.api.Test;
+import org.omg.CORBA.NVList;
 
 import modelo.vista.DatosPoblacion;
 import utilesglobal.Constantes;
@@ -152,6 +157,61 @@ public class Estado {
 			listaDesempleados.push(serVivo);
 		}
 
+	}
+	
+	public void subsidioJubilado(SerVivo jubilado) {
+		float nvJubilados = jubilado.getNecesidadVital();
+		double subsidioJubilado= capitalEstatal/getNumeroJubilados();
+		subsidioJubilado = jubilado.getAhorros() + nvJubilados / 4;
+		if (!jubilado.tieneAhorrosSuficientes()) {
+			if (subsidioJubilado>nvJubilados/2) {
+				subsidioJubilado=nvJubilados/2;
+			}
+			capitalEstatal=capitalEstatal-subsidioJubilado;
+			jubilado.cobrar(subsidioJubilado);
+		}
+
+	}
+	@Test
+	void testSubsidioJubilado(){
+		SerVivo jubilado=new SerVivo("David", 1, 67, 0);
+		subsidioJubilado(jubilado);
+		SerVivo jubiladoUno=new SerVivo("Sergio", 1, 67, 92);
+		subsidioJubilado(jubiladoUno);
+		
+	}
+	public void subsidioDesempleo(SerVivo desempleado) {
+		double NV= desempleado.getNecesidadVital();
+		double subsidioDesempleo= capitalEstatal/getNumeroDesempleados();	
+		if (!desempleado.tieneAhorrosSuficientes()) {
+			if(subsidioDesempleo>NV) {
+				subsidioDesempleo=NV;
+			}
+			capitalEstatal=capitalEstatal-NV;
+			desempleado.cobrar(subsidioDesempleo);
+		}
+
+	}
+	@Test
+	void testSubsidioDesempleo(){
+		SerVivo desempleado=new SerVivo("David", 1, 25, 0);
+		subsidioDesempleo(desempleado);
+		SerVivo desempleadoUno=new SerVivo("David", 1, 25, 366);
+		subsidioDesempleo(desempleadoUno);
+	}
+	public void pagarImpuestosYAhorrar(SerVivo trabajador) {
+		capitalEstatal=capitalEstatal+(trabajador.getSueldo()*0.25);
+		trabajador.setAhorro(trabajador.getSueldo()*0.25f);
+		trabajador.setSueldo(trabajador.getNecesidadVital());
+	}
+	@Test
+	void testPagarImpuestosYAhorrar(){
+		SerVivo trabajador;
+		trabajador=new SerVivo("David", 1, 25, 0);
+		trabajador.setSueldo(730);
+		pagarImpuestosYAhorrar(trabajador);
+		assertEquals(182.5f, trabajador.getAhorros());
+		assertEquals(100182.5, capitalEstatal);
 	}
 
 }
