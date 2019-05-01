@@ -46,5 +46,12 @@ class UtiliesTest {
 		}
 		assertTrue(minAlcanzado&&maxAlcanzado);
 	}
+	
+	@Test
+	void testNombreAleatorio() {
+		Utilies utilies=new Utilies();
+		String nombre=utilies.obtenerNombreAleatorio();
+		assertTrue(!nombre.isEmpty());
+	}
 
 }
