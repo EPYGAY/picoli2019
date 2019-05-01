@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import net.miginfocom.swing.MigLayout;
+import net.miginfocom.swing.*;
 
 
 public class UI extends JFrame {
@@ -67,62 +67,58 @@ public class UI extends JFrame {
 		lblAbsolutos.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		pnlPoblacion.add(lblAbsolutos, "cell 0 2");
 		
-		JLabel lblHabitantes = new JLabel("habitantes");
-		lblHabitantes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblHabitantes = new JLabel("Habitantes");
+		lblHabitantes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblHabitantes, "cell 1 3,alignx trailing");
 		
 		txtHabitantes = new JTextField();
 		txtHabitantes.setHorizontalAlignment(SwingConstants.CENTER);
 		txtHabitantes.setEditable(false);
-		txtHabitantes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtHabitantes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtHabitantes, "cell 4 3");
 		txtHabitantes.setColumns(10);
 		
-		JLabel lblMenores = new JLabel("menores");
-		lblMenores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblMenores = new JLabel("Menores");
+		lblMenores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblMenores, "cell 1 5,alignx trailing");
 		
 		txtMenores = new JTextField();
 		txtMenores.setHorizontalAlignment(SwingConstants.CENTER);
-		txtMenores.setText("50");
 		txtMenores.setEditable(false);
-		txtMenores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtMenores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtMenores, "cell 4 5");
 		txtMenores.setColumns(10);
 		
-		JLabel lblTrabjadores = new JLabel("trabjadores");
-		lblTrabjadores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblTrabjadores = new JLabel("Trabajadores");
+		lblTrabjadores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblTrabjadores, "cell 1 7,alignx trailing");
 		
 		txtTrabajadores = new JTextField();
 		txtTrabajadores.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTrabajadores.setText("100");
 		txtTrabajadores.setEditable(false);
-		txtTrabajadores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtTrabajadores, "cell 4 7");
 		txtTrabajadores.setColumns(10);
 		
-		JLabel lblJubilados = new JLabel("jubilados");
-		lblJubilados.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblJubilados = new JLabel("Jubilados");
+		lblJubilados.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblJubilados, "cell 1 9,alignx trailing");
 		
 		txtJubilados = new JTextField();
 		txtJubilados.setHorizontalAlignment(SwingConstants.CENTER);
 		txtJubilados.setEditable(false);
-		txtJubilados.setText("30");
-		txtJubilados.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtJubilados.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtJubilados, "cell 4 9");
 		txtJubilados.setColumns(10);
 		
-		JLabel lblDesempleado = new JLabel("desempleados");
+		JLabel lblDesempleado = new JLabel("Desempleados");
 		lblDesempleado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDesempleado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDesempleado.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblDesempleado, "cell 1 11,alignx right");
 		
 		txtDesempleados = new JTextField();
-		txtDesempleados.setText("0");
 		txtDesempleados.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDesempleados.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtDesempleados.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtDesempleados.setEditable(false);
 		txtDesempleados.setColumns(10);
 		pnlPoblacion.add(txtDesempleados, "cell 4 11,alignx left");
@@ -134,47 +130,47 @@ public class UI extends JFrame {
 		lblRelativos.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		pnlPoblacion.add(lblRelativos, "cell 0 14");
 		
-		JLabel lblNacimientos = new JLabel("nacimientos");
-		lblNacimientos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblNacimientos = new JLabel("Nacimientos");
+		lblNacimientos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblNacimientos, "cell 1 16,alignx trailing");
 		
 		txtNacimientos = new JTextField();
 		txtNacimientos.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNacimientos.setEditable(false);
-		txtNacimientos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNacimientos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtNacimientos, "cell 4 16");
 		txtNacimientos.setColumns(10);
 		
-		JLabel lblFallecimientos = new JLabel("fallecimientos");
-		lblFallecimientos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblFallecimientos = new JLabel("Fallecimientos");
+		lblFallecimientos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblFallecimientos, "cell 1 18,alignx trailing");
 		
 		txtFallecimientos = new JTextField();
 		txtFallecimientos.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFallecimientos.setEditable(false);
-		txtFallecimientos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtFallecimientos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtFallecimientos, "cell 4 18");
 		txtFallecimientos.setColumns(10);
 		
-		JLabel lblJubilaciones = new JLabel("jubilaciones");
-		lblJubilaciones.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblJubilaciones = new JLabel("Jubilaciones");
+		lblJubilaciones.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblJubilaciones, "cell 1 20,alignx trailing");
 		
 		textField_6 = new JTextField();
 		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setEditable(false);
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(textField_6, "cell 4 20");
 		textField_6.setColumns(10);
 		
-		JLabel lblNuevosTrabjadores = new JLabel("nuevos trabjadores");
-		lblNuevosTrabjadores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblNuevosTrabjadores = new JLabel("Nuevos trabjadores");
+		lblNuevosTrabjadores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(lblNuevosTrabjadores, "cell 1 22,alignx trailing");
 		
 		txtNuvosTrabjadores = new JTextField();
 		txtNuvosTrabjadores.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNuvosTrabjadores.setEditable(false);
-		txtNuvosTrabjadores.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNuvosTrabjadores.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlPoblacion.add(txtNuvosTrabjadores, "cell 4 22");
 		txtNuvosTrabjadores.setColumns(10);
 		
@@ -198,7 +194,7 @@ public class UI extends JFrame {
 		panel.add(btnIncrementarPorcentajeProduccion);
 		btnIncrementarPorcentajeProduccion.setActionCommand("");
 		btnIncrementarPorcentajeProduccion.setFont(new Font("Tahoma", Font.BOLD, 24));
-		btnIncrementarPorcentajeProduccion.setBackground(Color.GREEN);
+		btnIncrementarPorcentajeProduccion.setBackground(new Color(0, 128, 0));
 		btnIncrementarPorcentajeProduccion.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		
 		JButton btnPasarUnPeriodo = new JButton("Pasar un periodo");
@@ -208,9 +204,10 @@ public class UI extends JFrame {
 		btnPasarUnPeriodo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JButton btnDecrementarPorcentajeProduccion = new JButton("Decrementa porcentaje produccion");
+		btnDecrementarPorcentajeProduccion.setForeground(new Color(255, 255, 255));
 		panel.add(btnDecrementarPorcentajeProduccion);
 		btnDecrementarPorcentajeProduccion.setFont(new Font("Tahoma", Font.BOLD, 24));
-		btnDecrementarPorcentajeProduccion.setBackground(Color.RED);
+		btnDecrementarPorcentajeProduccion.setBackground(new Color(139, 0, 0));
 		btnDecrementarPorcentajeProduccion.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		
 		pnlEstadoLocal = new JPanel();
@@ -230,13 +227,14 @@ public class UI extends JFrame {
 		lblOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pnlEstadoLocal.add(lblOcupacion, "cell 5 2");
 		
-		JLabel lblGrandes = new JLabel("grandes");
-		lblGrandes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblGrandes = new JLabel("Grandes");
+		lblGrandes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoLocal.add(lblGrandes, "cell 1 5,alignx trailing");
 		
 		txtEmpresa = new JTextField();
+		txtEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEmpresa.setEditable(false);
-		txtEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtEmpresa.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoLocal.add(txtEmpresa, "cell 3 5");
 		txtEmpresa.setColumns(10);
 		
@@ -254,37 +252,35 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblAbsolutas, "cell 0 1");
 		
 		JLabel lblNewLabel = new JLabel("Demanda Anual");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(lblNewLabel, "cell 1 3,alignx trailing,aligny center");
 		
 		txtDemandaAnual = new JTextField();
 		txtDemandaAnual.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDemandaAnual.setEditable(false);
-		txtDemandaAnual.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtDemandaAnual.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(txtDemandaAnual, "cell 3 3,growx");
 		txtDemandaAnual.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Produccion anual");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(lblNewLabel_1, "cell 1 5");
 		
 		txtProduccionAnual = new JTextField();
-		txtProduccionAnual.setText("96725");
 		txtProduccionAnual.setHorizontalAlignment(SwingConstants.CENTER);
 		txtProduccionAnual.setEditable(false);
-		txtProduccionAnual.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtProduccionAnual.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(txtProduccionAnual, "cell 3 5,growx");
 		txtProduccionAnual.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Capital Estatal");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(lblNewLabel_2, "cell 1 7,alignx trailing,aligny top");
 		
 		txtCapitalEstatal = new JTextField();
-		txtCapitalEstatal.setText("100000");
 		txtCapitalEstatal.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCapitalEstatal.setEditable(false);
-		txtCapitalEstatal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCapitalEstatal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(txtCapitalEstatal, "cell 3 7,growx");
 		txtCapitalEstatal.setColumns(10);
 		
@@ -293,28 +289,28 @@ public class UI extends JFrame {
 		pnlEstadoGlobal.add(lblPorcentuales, "cell 0 10");
 		
 		JLabel lblNewLabel_3 = new JLabel("Crecimiento Anual");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(lblNewLabel_3, "cell 1 13,alignx trailing");
 		
 		txtCrecimientoAnual = new JTextField();
 		txtCrecimientoAnual.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCrecimientoAnual.setEditable(false);
-		txtCrecimientoAnual.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCrecimientoAnual.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoGlobal.add(txtCrecimientoAnual, "cell 3 13,growx");
 		txtCrecimientoAnual.setColumns(10);
 		
 		JLabel label_1 = new JLabel(" ");
 		pnlEstadoGlobal.add(label_1, "cell 1 17");
-		comunicadorPoblacion=crearComunicador(pnlPoblacion);
-		comunicadorEstadoLocal=crearComunicador(pnlEstadoLocal);
 		
 		txtOcupacion = new JTextField();
 		txtOcupacion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtOcupacion.setEditable(false);
-		txtOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtOcupacion.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pnlEstadoLocal.add(txtOcupacion, "cell 5 5");
 		txtOcupacion.setColumns(10);
 		comunicadorEstadoGlobal=crearComunicador(pnlEstadoGlobal);
+		comunicadorPoblacion=crearComunicador(pnlPoblacion);
+		comunicadorEstadoLocal=crearComunicador(pnlEstadoLocal);
 	}
 
 

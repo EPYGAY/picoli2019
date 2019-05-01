@@ -1,122 +1,104 @@
 package modelo.control;
 
-import java.util.ArrayList;
-
-import control.Estado;
+import utilesglobal.Constantes;
 import utilesglobal.Utilies;
 
 public class SerVivo {
-	public Estado estado = new Estado();
+
 	private String nombre;
-	private static int identificador = 1;
-	private float NV = 365f;
-	private float salario, edadMax, ahorro, edad;
+	private long identificador;
+	private float necesidadVital;
+	private float edad;
+	private float ahorro;
+	private float esperanzaVida;
+	private EstadoSocial estadoSocial;
+	private boolean desempleado;
 
-	ArrayList<SerVivo> seresVivos = new ArrayList<SerVivo>();
-
-	public SerVivo(String nombre, int identificador, float nV, float edadMax, float ahorro, float edad) {
-		super();
+	public SerVivo(String nombre, long identificador) {
 		this.nombre = nombre;
 		this.identificador = identificador;
-		NV = nV;
+		this.edad = 0f;
+		this.ahorro = 0f;
+		this.esperanzaVida = Utilies.calcularEdadMax((int) edad);
+		this.necesidadVital = Constantes.NV_INICIAL;
+		comprobarEstado();
+	}
 
-		this.edadMax = edadMax;
+	public SerVivo(String nombre, long identificador, float edad, float ahorro) {
+		this.nombre = nombre;
+		this.identificador = identificador;
+		this.edad = edad;
 		this.ahorro = ahorro;
-		this.edad = edad;
+		this.esperanzaVida = Utilies.calcularEdadMax((int) edad);
+		this.necesidadVital = Constantes.NV_INICIAL;
+		comprobarEstado();
 	}
 
-	public void rellenarListaGlobal(ArrayList<SerVivo> seresVivos) {
-		int trabajadores = 100;
-		int menores = 50;
-		int jubilados = 30;
-		for (int i = 0; i < trabajadores; i++) {
-			seresVivos.add(new SerVivo("EPYGAY", getIdentificador(), NV,
-					Utilies.obtenerAleatorio(obtenerEdadActual(), 90), 0, obtenerEdadActual()));
-		}
-		for (int i = 0; i < menores; i++) {
-			seresVivos.add(new SerVivo("EPYGAY", getIdentificador(), NV,
-					Utilies.obtenerAleatorio(obtenerEdadActual(), 90), 0, obtenerEdadActual()));
-		}
-		for (int i = 0; i < jubilados; i++) {
-			seresVivos.add(new SerVivo("EPYGAY", getIdentificador(), NV / 2,
-					Utilies.obtenerAleatorio(obtenerEdadActual(), 90), 0, obtenerEdadActual()));
-		}
-
+	public void pasarAnno() {
+		edad++;
+		comprobarEstado();
 	}
 
-	public int getIdentificador() {
-		return identificador++;
-	}
-
-	public int obtenerEdadActual() {
+	public float cobrar(float salario) {
+		//TODO 
 		return 0;
-
 	}
 
-	public float getEdad() {
-		return edad;
+	public void despedir() {
+		desempleado = true;
 	}
 
-	public void setEdad(float edad) {
-		this.edad = edad;
+	public void contratar() {
+		desempleado = false;
 	}
 
-	public float getEdadMax() {
-		return edadMax;
+	public boolean isAdulto() {
+		return EstadoSocial.ADULTO.equals(estadoSocial);
 	}
 
-	public void setEdadMax(float edadMax) {
-		this.edadMax = edadMax;
+	public boolean isJubilado() {
+		return EstadoSocial.JUBILADO.equals(estadoSocial);
 	}
 
-	/*
-	 * public void calcularSueldo(float sueldo, float dineroEstado) { if (tipo ==
-	 * tipo.desempleado) { float NVconsueldo = NV - sueldo; this.ahorro -=
-	 * NVconsueldo; ahorroinsuficiente(); } if (tipo == tipo.jubilado) { if
-	 * (this.ahorro > NV / 2) { this.ahorro -= NV / 2; } else { if (dineroEstado >
-	 * this.NV / 4) { dineroEstado -= this.NV / 4; this.ahorro -= this.NV / 4;
-	 * ahorroinsuficiente(); } else { this.ahorro += dineroEstado; dineroEstado = 0;
-	 * this.ahorro -= this.NV / 2; ahorroinsuficiente(); } } } if (tipo ==
-	 * tipo.menor) { if (this.NV > sueldo) { // Pierde vida } } if (tipo ==
-	 * tipo.trabajador) { if (sueldo >= NV) { sueldo -= NV; if (sueldo < 0) { sueldo
-	 * = 0; } float sobra = sueldo / 2; this.ahorro += sobra / 2; dineroEstado +=
-	 * sobra / 2; } else { float falta = NV - sueldo; if (falta > this.ahorro) {
-	 * dineroEstado -= NV / 2; if (falta > this.ahorro + NV / 2) { this.ahorro += NV
-	 * / 2; } this.ahorro -= falta; } ahorroinsuficiente(); } } // si cobra
-	 * suficiente paga el nv , y lo que le sobra mitad dineroestado y la // otra
-	 * ahorro // si no cobra lo suficiente ese ayuda de los ahorrosç // si no puede
-	 * pagar el NV le ayuda el estado }
-	 */
-	private void ahorroinsuficiente() {
-		if (this.ahorro < 0) {
-			// se reduce la vida
-			this.ahorro = 0;
-		}
+	public boolean isVivo() {
+		return EstadoSocial.FALLECIDO.equals(estadoSocial);
 	}
 
-	public void calcularEdadMax() {
-		int maxEsperanzanVida = 90;
-		this.edadMax = Utilies.obtenerAleatorio(maxEsperanzanVida);
+	public boolean isDesempleado() {
+		return isAdulto() && desempleado;
 	}
 
-	public void calcularAhorros(float dinero) {
-		this.ahorro += dinero;
+	public boolean tieneAhorrosSuficientes() {
+		return ahorro >= necesidadVital;
 	}
 
-	public float getAhorro() {
+	public boolean tieneAhorrosSuficientes(float gasto) {
+		return ahorro >= gasto;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public long getIdentificador() {
+		return identificador;
+	}
+
+	public float getAhorros() {
 		return ahorro;
 	}
 
-	public void setAhorro(float ahorro) {
-		this.ahorro = ahorro;
+	public float getNecesidadVital() {
+		return necesidadVital;
 	}
 
-	public float getSalario() {
-		return salario;
+	private void comprobarEstado() {
+		//TODO
 	}
 
-	public void setSalario(float salario) {
-		this.salario = salario;
+	private void decrementarEsperanzaVida(float deficit) {
+		float decrementoVida = deficit / necesidadVital - Constantes.DECREMENTO_ESPERANZA;
+		esperanzaVida -= Math.abs(decrementoVida);
 	}
 
 }
