@@ -13,6 +13,15 @@ public class SerVivo {
 	private float esperanzaVida;
 	private EstadoSocial estadoSocial;
 	private boolean desempleado;
+	private float sueldo;
+
+	public float getSueldo() {
+		return sueldo;
+	}
+
+	public void setSueldo(float sueldo) {
+		this.sueldo = sueldo;
+	}
 
 	public SerVivo(String nombre, long identificador) {
 		this.nombre = nombre;
@@ -39,9 +48,9 @@ public class SerVivo {
 		comprobarEstado();
 	}
 
-	public float cobrar(float salario) {
-		//TODO 
-		return 0;
+	public float cobrar(double salario) {
+
+		return sueldo = (float) salario;
 	}
 
 	public void despedir() {
@@ -93,7 +102,11 @@ public class SerVivo {
 	}
 
 	private void comprobarEstado() {
-		//TODO
+		// TODO
+	}
+
+	public void setAhorro(float ahorro) {
+		this.ahorro = ahorro;
 	}
 
 	private void decrementarEsperanzaVida(float deficit) {
