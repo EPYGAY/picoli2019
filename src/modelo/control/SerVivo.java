@@ -40,8 +40,24 @@ public class SerVivo {
 	}
 
 	public float cobrar(float salario) {
-		//TODO 
-		return 0;
+		float deficit = salario - necesidadVital;
+		float dineroParaEstado = 0;
+		// Si cobramos menos de lo que necesitamos
+		if (deficit < 0) {
+			deficit = Math.abs(deficit);
+			if (tieneAhorrosSuficientes(deficit)) {
+				ahorro -= deficit;
+			} else {
+				deficit -= ahorro;
+				ahorro = 0;
+				decrementarEsperanzaVida(deficit);
+			}
+		} else {
+			float mitad = deficit / 2;
+			ahorro += mitad;
+			dineroParaEstado = mitad;
+		}
+		return dineroParaEstado;
 	}
 
 	public void despedir() {
@@ -93,7 +109,16 @@ public class SerVivo {
 	}
 
 	private void comprobarEstado() {
-		//TODO
+		if (edad > esperanzaVida) {
+			estadoSocial = EstadoSocial.FALLECIDO;
+		} else if ((estadoSocial == null || !isJubilado()) && edad >= Constantes.EDAD_JUBILADO) {
+			estadoSocial = EstadoSocial.JUBILADO;
+			necesidadVital /= 2;
+		} else if ((estadoSocial == null || !isAdulto()) && edad >= Constantes.EDAD_ADULTA) {
+			estadoSocial = EstadoSocial.ADULTO;
+		} else if(edad<Constantes.EDAD_ADULTA) {
+			estadoSocial = EstadoSocial.MENOR;
+		}
 	}
 
 	private void decrementarEsperanzaVida(float deficit) {

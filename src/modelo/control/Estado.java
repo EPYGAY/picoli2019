@@ -21,7 +21,7 @@ public class Estado {
 	private LinkedList<SerVivo> listaDesempleados = new LinkedList<SerVivo>();
 	// jubilados depende de la edadmax
 	private List<SerVivo> listaJubilados = new ArrayList<>();
-	// La ultima empresa en llegar es la primera en salir
+
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
 
 	private long numeroNacimientos = 0, numeroFallecimientos = 0, numeroJubilaciones = 0, numeroContrataciones = 0;
@@ -33,7 +33,9 @@ public class Estado {
 	}
 
 	public void nacimiento() {
-		// TODO crea un menor tipo ser vivo con nombre aleatorio y identificador++
+		SerVivo menor = new SerVivo(Utilies.obtenerNombreAleatorio(), identificadores++);
+		numeroNacimientos++;
+		listaMenores.add(menor);
 	}
 
 	public void condicionesIniciales() {
@@ -111,13 +113,34 @@ public class Estado {
 	}
 
 	public double getCrecimientoAnual() {
-		// TODO produccion actual-produccionAnterior e igualamos
-		return 0;
+		long produccionActual = getProduccion();
+		crecimientoAnual = produccionActual - produccionAnterior;
+		produccionAnterior = produccionActual;
+		return crecimientoAnual;
 	}
 
 	public double getDemanda() {
-		// TODO recorre cada lista e suma la demanda que tiene cada uno
-		return 0;
+
+		float demanda = 0;
+		for (SerVivo serVivo : listaDesempleados) {
+			demanda += serVivo.getNecesidadVital();
+		}
+		for (SerVivo serVivo : listaJubilados) {
+			demanda += serVivo.getNecesidadVital();
+		}
+		for (SerVivo serVivo : listaMenores) {
+			demanda += serVivo.getNecesidadVital();
+		}
+
+		// TODO Las necesidades de los trabajadores se consideran como demanda o ya
+		// estan cubiertas por la empresa
+		/*
+		 * for (Empresa empresa : listaFactorias) { for (SerVivo serVivo :
+		 * empresa.getTrabjadores()) { demanda += serVivo.getNecesidadVital(); }
+		 * 
+		 * }
+		 */
+		return demanda;
 	}
 
 	public int getNumeroEmpresa() {
@@ -126,25 +149,48 @@ public class Estado {
 	}
 
 	public float getPorcentajeGrandes() {
-		//TODO A través de la lista Factorias, calcular el porcentaje
-		return 0;
+		float porcentaje = 0;
+		for (Empresa empresa : listaFactorias) {
+			porcentaje += empresa.calcularProductividad();
+		}
+		porcentaje /= getNumeroEmpresa();
+		return porcentaje;
 	}
 
 	public long getProduccion() {
-		
-		//TODO A través de la lista Factorias, calcular la produccion
-				return 0;
+		long produccion = 0;
+		for (Empresa empresa : listaFactorias) {
+			produccion += empresa.getProduccion();
+		}
+
+		return produccion;
+
 	}
 
 	public void despedir(int numeroDespidos) {
-		//TODO 1. borra la ultima empresa de la pila de empresas
-		//	   2. crea un array de despedidos, los añade y comprueb asi hay suficientes
-		//	   ...
+		Empresa empresa = listaFactorias.peek();
+		List<SerVivo> despedidos = new ArrayList<>();
+		if (empresa.getNumeroTrabjadores() > numeroDespidos) {
+			despedidos.addAll(empresa.despedir(numeroDespidos));
+			numeroDespidos = 0;
+		} else {
+			int numeroPosiblesDespidos = empresa.getNumeroTrabjadores();
+			numeroDespidos -= numeroPosiblesDespidos;
+			empresa.despedir(numeroPosiblesDespidos);
+			listaFactorias.pop();
+		}
+		annadirDesempleados(despedidos);
+		// Recursividad
+		if (numeroDespidos > 0) {
+			despedir(numeroDespidos);
+		}
 
 	}
-
 	public void nacer(int numeroDeNacimientos) {
-		//TODO 
+		for (int i = 0; i < numeroDeNacimientos; i++) {
+			nacimiento();
+		}
+		this.numeroNacimientos=numeroDeNacimientos;
 	}
 
 	private void annadirDesempleados(List<SerVivo> despedidos) {
