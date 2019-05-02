@@ -1,16 +1,11 @@
 package modelo.control;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 import javax.sound.midi.Track;
-
-import org.junit.jupiter.api.Test;
-import org.omg.CORBA.NVList;
 
 import modelo.vista.DatosPoblacion;
 import utilesglobal.Constantes;
@@ -26,7 +21,7 @@ public class Estado {
 	private LinkedList<SerVivo> listaDesempleados = new LinkedList<SerVivo>();
 	// jubilados depende de la edadmax
 	private List<SerVivo> listaJubilados = new ArrayList<>();
-	// La ultima empresa en llegar es la primera en salir
+
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
 
 	private long numeroNacimientos = 0, numeroFallecimientos = 0, numeroJubilaciones = 0, numeroContrataciones = 0;
@@ -38,7 +33,9 @@ public class Estado {
 	}
 
 	public void nacimiento() {
-		// TODO crea un menor tipo ser vivo con nombre aleatorio y identificador++
+		SerVivo menor = new SerVivo(Utilies.obtenerNombreAleatorio(), identificadores++);
+		numeroNacimientos++;
+		listaMenores.add(menor);
 	}
 
 	public void condicionesIniciales() {
@@ -116,13 +113,34 @@ public class Estado {
 	}
 
 	public double getCrecimientoAnual() {
-		// TODO produccion actual-produccionAnterior e igualamos
-		return 0;
+		long produccionActual = getProduccion();
+		crecimientoAnual = produccionActual - produccionAnterior;
+		produccionAnterior = produccionActual;
+		return crecimientoAnual;
 	}
 
 	public double getDemanda() {
-		// TODO recorre cada lista e suma la demanda que tiene cada uno
-		return 0;
+
+		float demanda = 0;
+		for (SerVivo serVivo : listaDesempleados) {
+			demanda += serVivo.getNecesidadVital();
+		}
+		for (SerVivo serVivo : listaJubilados) {
+			demanda += serVivo.getNecesidadVital();
+		}
+		for (SerVivo serVivo : listaMenores) {
+			demanda += serVivo.getNecesidadVital();
+		}
+
+		// TODO Las necesidades de los trabajadores se consideran como demanda o ya
+		// estan cubiertas por la empresa
+		/*
+		 * for (Empresa empresa : listaFactorias) { for (SerVivo serVivo :
+		 * empresa.getTrabjadores()) { demanda += serVivo.getNecesidadVital(); }
+		 * 
+		 * }
+		 */
+		return demanda;
 	}
 
 	public int getNumeroEmpresa() {
@@ -131,25 +149,48 @@ public class Estado {
 	}
 
 	public float getPorcentajeGrandes() {
-		//TODO A través de la lista Factorias, calcular el porcentaje
-		return 0;
+		float porcentaje = 0;
+		for (Empresa empresa : listaFactorias) {
+			porcentaje += empresa.calcularProductividad();
+		}
+		porcentaje /= getNumeroEmpresa();
+		return porcentaje;
 	}
 
 	public long getProduccion() {
-		
-		//TODO A través de la lista Factorias, calcular la produccion
-				return 0;
+		long produccion = 0;
+		for (Empresa empresa : listaFactorias) {
+			produccion += empresa.getProduccion();
+		}
+
+		return produccion;
+
 	}
 
 	public void despedir(int numeroDespidos) {
-		//TODO 1. borra la ultima empresa de la pila de empresas
-		//	   2. crea un array de despedidos, los añade y comprueb asi hay suficientes
-		//	   ...
+		Empresa empresa = listaFactorias.peek();
+		List<SerVivo> despedidos = new ArrayList<>();
+		if (empresa.getNumeroTrabjadores() > numeroDespidos) {
+			despedidos.addAll(empresa.despedir(numeroDespidos));
+			numeroDespidos = 0;
+		} else {
+			int numeroPosiblesDespidos = empresa.getNumeroTrabjadores();
+			numeroDespidos -= numeroPosiblesDespidos;
+			empresa.despedir(numeroPosiblesDespidos);
+			listaFactorias.pop();
+		}
+		annadirDesempleados(despedidos);
+		// Recursividad
+		if (numeroDespidos > 0) {
+			despedir(numeroDespidos);
+		}
 
 	}
-
 	public void nacer(int numeroDeNacimientos) {
-		//TODO 
+		for (int i = 0; i < numeroDeNacimientos; i++) {
+			nacimiento();
+		}
+		this.numeroNacimientos=numeroDeNacimientos;
 	}
 
 	private void annadirDesempleados(List<SerVivo> despedidos) {
@@ -157,61 +198,6 @@ public class Estado {
 			listaDesempleados.push(serVivo);
 		}
 
-	}
-	
-	public void subsidioJubilado(SerVivo jubilado) {
-		float nvJubilados = jubilado.getNecesidadVital();
-		double subsidioJubilado= capitalEstatal/getNumeroJubilados();
-		subsidioJubilado = jubilado.getAhorros() + nvJubilados / 4;
-		if (!jubilado.tieneAhorrosSuficientes()) {
-			if (subsidioJubilado>nvJubilados/2) {
-				subsidioJubilado=nvJubilados/2;
-			}
-			capitalEstatal=capitalEstatal-subsidioJubilado;
-			jubilado.cobrar(subsidioJubilado);
-		}
-
-	}
-	@Test
-	void testSubsidioJubilado(){
-		SerVivo jubilado=new SerVivo("David", 1, 67, 0);
-		subsidioJubilado(jubilado);
-		SerVivo jubiladoUno=new SerVivo("Sergio", 1, 67, 92);
-		subsidioJubilado(jubiladoUno);
-		
-	}
-	public void subsidioDesempleo(SerVivo desempleado) {
-		double NV= desempleado.getNecesidadVital();
-		double subsidioDesempleo= capitalEstatal/getNumeroDesempleados();	
-		if (!desempleado.tieneAhorrosSuficientes()) {
-			if(subsidioDesempleo>NV) {
-				subsidioDesempleo=NV;
-			}
-			capitalEstatal=capitalEstatal-NV;
-			desempleado.cobrar(subsidioDesempleo);
-		}
-
-	}
-	@Test
-	void testSubsidioDesempleo(){
-		SerVivo desempleado=new SerVivo("David", 1, 25, 0);
-		subsidioDesempleo(desempleado);
-		SerVivo desempleadoUno=new SerVivo("David", 1, 25, 366);
-		subsidioDesempleo(desempleadoUno);
-	}
-	public void pagarImpuestosYAhorrar(SerVivo trabajador) {
-		capitalEstatal=capitalEstatal+(trabajador.getSueldo()*0.25);
-		trabajador.setAhorro(trabajador.getSueldo()*0.25f);
-		trabajador.setSueldo(trabajador.getNecesidadVital());
-	}
-	@Test
-	void testPagarImpuestosYAhorrar(){
-		SerVivo trabajador;
-		trabajador=new SerVivo("David", 1, 25, 0);
-		trabajador.setSueldo(730);
-		pagarImpuestosYAhorrar(trabajador);
-		assertEquals(182.5f, trabajador.getAhorros());
-		assertEquals(100182.5, capitalEstatal);
 	}
 
 }

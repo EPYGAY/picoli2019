@@ -13,15 +13,6 @@ public class SerVivo {
 	private float esperanzaVida;
 	private EstadoSocial estadoSocial;
 	private boolean desempleado;
-	private float sueldo;
-
-	public float getSueldo() {
-		return sueldo;
-	}
-
-	public void setSueldo(float sueldo) {
-		this.sueldo = sueldo;
-	}
 
 	public SerVivo(String nombre, long identificador) {
 		this.nombre = nombre;
@@ -48,9 +39,25 @@ public class SerVivo {
 		comprobarEstado();
 	}
 
-	public float cobrar(double salario) {
-
-		return sueldo = (float) salario;
+	public float cobrar(float salario) {
+		float deficit = salario - necesidadVital;
+		float dineroParaEstado = 0;
+		// Si cobramos menos de lo que necesitamos
+		if (deficit < 0) {
+			deficit = Math.abs(deficit);
+			if (tieneAhorrosSuficientes(deficit)) {
+				ahorro -= deficit;
+			} else {
+				deficit -= ahorro;
+				ahorro = 0;
+				decrementarEsperanzaVida(deficit);
+			}
+		} else {
+			float mitad = deficit / 2;
+			ahorro += mitad;
+			dineroParaEstado = mitad;
+		}
+		return dineroParaEstado;
 	}
 
 	public void despedir() {
@@ -102,11 +109,16 @@ public class SerVivo {
 	}
 
 	private void comprobarEstado() {
-		// TODO
-	}
-
-	public void setAhorro(float ahorro) {
-		this.ahorro = ahorro;
+		if (edad > esperanzaVida) {
+			estadoSocial = EstadoSocial.FALLECIDO;
+		} else if ((estadoSocial == null || !isJubilado()) && edad >= Constantes.EDAD_JUBILADO) {
+			estadoSocial = EstadoSocial.JUBILADO;
+			necesidadVital /= 2;
+		} else if ((estadoSocial == null || !isAdulto()) && edad >= Constantes.EDAD_ADULTA) {
+			estadoSocial = EstadoSocial.ADULTO;
+		} else if(edad<Constantes.EDAD_ADULTA) {
+			estadoSocial = EstadoSocial.MENOR;
+		}
 	}
 
 	private void decrementarEsperanzaVida(float deficit) {

@@ -21,12 +21,13 @@ public class Empresa {
 	}
 		
 	public float calcularProductividad() {
-		//TODO calcula la productividad a partir del numero de Trabajadores
-		return 0;
+		int numeroTrabjadores=getNumeroTrabjadores();
+		float productividad=(numeroTrabjadores*100)/tamanoMaximo;
+		return productividad;
 	}
 	public double getProduccion() {
-		//TODO obtiene la produccion por trabajador
-		return 0;
+		double produccion= getNumeroTrabjadores()*Constantes.PRODUCCION_TRABAJADOR;
+		return produccion;
 		
 	}
 
@@ -38,16 +39,20 @@ public class Empresa {
 		return trabjadores.size();
 	}
 	public void pagarEmpleado() {
-		//TODO pagar a un Trabajador 
+		for (SerVivo trabajador : trabjadores) {
+			trabajador.cobrar(salario);
+		}
 	}
 	public Stack<SerVivo> getTrabjadores() {
 		return trabjadores;
 	}
 	public List <SerVivo> despedir(int numeroTrabajadoresDespedir){
-		//TODO despedir a un trabajador(pop)
-		return trabjadores;
-		
-		
+		List<SerVivo> trabajadoresDespido= new ArrayList();
+		for (int i = 0; i < numeroTrabajadoresDespedir; i++) {
+			trabajadoresDespido.add(trabjadores.pop());
+			
+		}
+		return trabajadoresDespido;
 		
 	}
 }
