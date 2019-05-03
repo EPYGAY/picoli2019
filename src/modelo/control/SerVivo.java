@@ -1,5 +1,9 @@
 package modelo.control;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import utilesglobal.Constantes;
 import utilesglobal.Utilies;
 
@@ -125,5 +129,13 @@ public class SerVivo {
 		float decrementoVida = deficit / necesidadVital - Constantes.DECREMENTO_ESPERANZA;
 		esperanzaVida -= Math.abs(decrementoVida);
 	}
-
+	static class TestClass {
+		@Test
+		void testdecrementarEsperanzaVida() {
+			SerVivo uno = new SerVivo("Joaquin", 1, 30, 0);
+			uno.esperanzaVida=90;
+			uno.decrementarEsperanzaVida(182.5f);
+			assertEquals(90, uno.esperanzaVida);
+		}
+	}
 }
