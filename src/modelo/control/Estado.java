@@ -1,11 +1,15 @@
 package modelo.control;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 import javax.sound.midi.Track;
+
+import org.junit.jupiter.api.Test;
 
 import modelo.vista.DatosPoblacion;
 import utilesglobal.Constantes;
@@ -24,7 +28,13 @@ public class Estado {
 
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
 
-	private long numeroNacimientos = 0, numeroFallecimientos = 0, numeroJubilaciones = 0, numeroContrataciones = 0;
+	public long numeroNacimientos = 0;
+
+	private long numeroFallecimientos = 0;
+
+	private long numeroJubilaciones = 0;
+
+	private long numeroContrataciones = 0;
 	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0;
 
 	public Estado() {
@@ -187,10 +197,12 @@ public class Estado {
 
 	}
 	public void nacer(int numeroDeNacimientos) {
+		
 		for (int i = 0; i < numeroDeNacimientos; i++) {
 			nacimiento();
 		}
 		this.numeroNacimientos=numeroDeNacimientos;
+		
 	}
 
 	private void annadirDesempleados(List<SerVivo> despedidos) {
@@ -199,5 +211,6 @@ public class Estado {
 		}
 
 	}
+	
 
 }

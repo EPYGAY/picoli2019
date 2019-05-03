@@ -137,5 +137,10 @@ public class SerVivo {
 			uno.decrementarEsperanzaVida(182.5f);
 			assertEquals(90, uno.esperanzaVida);
 		}
+		@Test
+		void testcobrar() {
+			
+		}
+		
 	}
 }
