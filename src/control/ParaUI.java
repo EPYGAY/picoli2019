@@ -26,12 +26,14 @@ public class ParaUI extends UI {
 		});
 		btnIncrementarPorcentajeProduccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				estado.aumentarProduccion(0);
+				estado.aumentarProduccion(0/*Recoge el valor del TXT*/);
+				getDatosEstado();
 			}
 		});
 		btnDecrementarPorcentajeProduccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				estado.decrementarProduccion();
+				getDatosEstado();
 			}
 		});
 

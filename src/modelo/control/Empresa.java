@@ -19,7 +19,6 @@ public class Empresa {
 	public Empresa(){
 		
 	}
-		
 	public float calcularProductividad() {
 		int numeroTrabjadores=getNumeroTrabjadores();
 		float productividad=(numeroTrabjadores*100)/tamanoMaximo;
@@ -46,7 +45,7 @@ public class Empresa {
 	public Stack<SerVivo> getTrabjadores() {
 		return trabjadores;
 	}
-	public List <SerVivo> despedir(int numeroTrabajadoresDespedir){
+	public List <SerVivo> despedir(long numeroTrabajadoresDespedir){
 		List<SerVivo> trabajadoresDespido= new ArrayList();
 		for (int i = 0; i < numeroTrabajadoresDespedir; i++) {
 			trabajadoresDespido.add(trabjadores.pop());
@@ -54,5 +53,9 @@ public class Empresa {
 		}
 		return trabajadoresDespido;
 		
+	}
+	public void contratar(SerVivo trabajador) {
+		trabajador.contratar();
+		trabjadores.push(trabajador);
 	}
 }
