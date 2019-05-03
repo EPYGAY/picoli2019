@@ -22,6 +22,8 @@ import java.awt.Dimension;
 import javax.swing.border.CompoundBorder;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UI extends JFrame {
 
@@ -47,6 +49,9 @@ public class UI extends JFrame {
 	private JPanel pnlEstadoGlobal;
 	private JTextField txtDesempleados;
 	private JTextField textField;
+	protected JButton btnPasarUnPeriodo;
+	protected JButton btnIncrementarPorcentajeProduccion;
+	protected JButton btnDecrementarPorcentajeProduccion;
 
 	/**
 	 * Create the frame.
@@ -217,7 +222,8 @@ public class UI extends JFrame {
 				lblControlEstado.setFont(new Font("Tahoma", Font.BOLD, 20));
 				lblControlEstado.setHorizontalAlignment(SwingConstants.LEFT);
 
-		JButton btnIncrementarPorcentajeProduccion = new JButton("Incrementa Porcentaje Produccion");
+		btnIncrementarPorcentajeProduccion = new JButton("Incrementa Porcentaje Produccion");
+		
 		btnIncrementarPorcentajeProduccion.setForeground(new Color(255, 255, 255));
 		panel.add(btnIncrementarPorcentajeProduccion);
 		btnIncrementarPorcentajeProduccion.setActionCommand("");
@@ -249,7 +255,8 @@ public class UI extends JFrame {
 						panel_1.add(btnNewButton);
 						btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 
-		JButton btnPasarUnPeriodo = new JButton("Pasar un periodo");
+		btnPasarUnPeriodo = new JButton("Pasar un periodo");
+		
 		btnPasarUnPeriodo.setBackground(new Color(255, 255, 255));
 		panel.add(btnPasarUnPeriodo);
 		btnPasarUnPeriodo.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -260,7 +267,8 @@ public class UI extends JFrame {
 		panel_2.setBackground(new Color(153, 204, 102));
 		panel.add(panel_2);
 
-		JButton btnDecrementarPorcentajeProduccion = new JButton("Decrementa porcentaje produccion");
+		btnDecrementarPorcentajeProduccion = new JButton("Decrementa porcentaje produccion");
+		
 		btnDecrementarPorcentajeProduccion.setForeground(new Color(255, 255, 255));
 		panel.add(btnDecrementarPorcentajeProduccion);
 		btnDecrementarPorcentajeProduccion.setFont(new Font("Tahoma", Font.BOLD, 24));

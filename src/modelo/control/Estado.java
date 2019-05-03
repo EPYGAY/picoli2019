@@ -232,11 +232,45 @@ public class Estado {
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		// TODO
+		//TODO
 	}
 
 	private void pasarMenoresADesempleado() {
-		// TODO
+		
 	}
+	private void jubilarGente() {
+		pasarDesempleadosAJubilados();
+		pasarTrabajadoresAJubilados();
+	}
+	public void pasarPeriodo() {
+		numeroFallecimientos = 0;
+		numeroJubilaciones = 0;
+		numeroNacimientos = 0;
+		numeroContrataciones = 0;
+		pasarAnnosAtodos();
+		jubilarGente();
+		pasarMenoresADesempleado();
+		pagarPoblacion();
+		//contratar(getNumeroEmpresa());
+		despedir(getNumeroEmpresa());
+		
+	}
+	private void pasarAnnosAtodos() {
+		for (SerVivo serVivo : listaJubilados) {
+			serVivo.pasarAnno();
+		}
+		for (SerVivo serVivo : listaDesempleados) {
+			serVivo.pasarAnno();
+		}
+		for (SerVivo serVivo : listaMenores) {
+			serVivo.pasarAnno();
+		}
+		for (Empresa empresa : listaFactorias) {
+			for (SerVivo serVivo : empresa.getTrabjadores()) {
+				serVivo.pasarAnno();
+			}
+		}
+	}
+	
 
 }
