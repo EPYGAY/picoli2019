@@ -1,5 +1,8 @@
 package control;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import modelo.control.Estado;
 import modelo.vista.Datos;
 import modelo.vista.DatosEstadoGlobal;
@@ -15,8 +18,25 @@ public class ParaUI extends UI {
 	public ParaUI() {
 		estado = new Estado();
 		getDatosEstado();
+		btnPasarUnPeriodo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				estado.pasarPeriodo();
+				getDatosEstado();
+			}
+		});
+		btnIncrementarPorcentajeProduccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				estado.aumentarProduccion(0);
+			}
+		});
+		btnDecrementarPorcentajeProduccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				estado.decrementarProduccion();
+			}
+		});
 
 	}
+	
 	
 	public void getDatosEstado() {
 		DatosPoblacion datosPoblacion=getDatosPoblacion();
