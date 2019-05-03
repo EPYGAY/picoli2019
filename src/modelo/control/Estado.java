@@ -173,7 +173,7 @@ public class Estado {
 
 	}
 
-	public void despedir(int numeroDespidos) {
+	public void despedir(long numeroDespidos) {
 		Empresa empresa = listaFactorias.peek();
 		List<SerVivo> despedidos = new ArrayList<>();
 		if (empresa.getNumeroTrabjadores() > numeroDespidos) {
@@ -193,7 +193,7 @@ public class Estado {
 
 	}
 
-	public void nacer(int numeroDeNacimientos) {
+	public void nacer(long numeroDeNacimientos) {
 
 		for (int i = 0; i < numeroDeNacimientos; i++) {
 			nacimiento();
@@ -209,35 +209,15 @@ public class Estado {
 
 	}
 
-	public void aumentarProduccion(int i) {
-		// TODO logica conectarBotones ParaUI
-
+	public void contratar(long numeroContrataciones) {
+		Empresa empresa = listaFactorias.peek();
+		for (int i = 0; i < numeroContrataciones; i++) {
+			empresa.contratar(listaDesempleados.pop());
+		}
 	}
+	
 
-	public void decrementarProduccion() {
-		// TODO logica conectarBotones ParaUI
-
-	}
-
-	public void contratar(int numeroContrataciones) {
-		// TODO
-	}
-
-	private void pagarPoblacion() {
-		// TODO
-	}
-
-	private void pasarTrabajadoresAJubilados() {
-		// TODO
-	}
-
-	private void pasarDesempleadosAJubilados() {
-		//TODO
-	}
-
-	private void pasarMenoresADesempleado() {
-		
-	}
+	
 	private void jubilarGente() {
 		pasarDesempleadosAJubilados();
 		pasarTrabajadoresAJubilados();
@@ -248,13 +228,16 @@ public class Estado {
 		numeroNacimientos = 0;
 		numeroContrataciones = 0;
 		pasarAnnosAtodos();
+		nacer(getNumeroNacimientos());
+		morir();
 		jubilarGente();
 		pasarMenoresADesempleado();
 		pagarPoblacion();
-		//contratar(getNumeroEmpresa());
-		despedir(getNumeroEmpresa());
+		contratar(getNumeroContrataciones());
+		despedir(getNumeroContrataciones());
 		
 	}
+	
 	private void pasarAnnosAtodos() {
 		for (SerVivo serVivo : listaJubilados) {
 			serVivo.pasarAnno();
@@ -270,6 +253,35 @@ public class Estado {
 				serVivo.pasarAnno();
 			}
 		}
+	}
+	public void aumentarProduccion(int i) {
+		// TODO logica conectarBotones ParaUI
+
+	}
+
+	public void decrementarProduccion() {
+		// TODO logica conectarBotones ParaUI
+
+	}
+	
+	private void pagarPoblacion() {
+		// TODO
+	}
+
+	private void pasarTrabajadoresAJubilados() {
+		// TODO
+	}
+
+	private void pasarDesempleadosAJubilados() {
+		//TODO
+	}
+
+	private void pasarMenoresADesempleado() {
+		
+	}
+	
+	public void morir() {
+		
 	}
 	
 
