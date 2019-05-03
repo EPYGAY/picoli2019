@@ -1,5 +1,5 @@
 package modelo.control;
 
-public enum EstadoSocial {
+public enum Situacion {
 	MENOR,ADULTO,JUBILADO,FALLECIDO
 }

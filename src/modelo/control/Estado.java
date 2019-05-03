@@ -29,11 +29,8 @@ public class Estado {
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
 
 	public long numeroNacimientos = 0;
-
 	private long numeroFallecimientos = 0;
-
 	private long numeroJubilaciones = 0;
-
 	private long numeroContrataciones = 0;
 	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0;
 
@@ -142,14 +139,13 @@ public class Estado {
 			demanda += serVivo.getNecesidadVital();
 		}
 
-		// TODO Las necesidades de los trabajadores se consideran como demanda o ya
-		// estan cubiertas por la empresa
-		/*
-		 * for (Empresa empresa : listaFactorias) { for (SerVivo serVivo :
-		 * empresa.getTrabjadores()) { demanda += serVivo.getNecesidadVital(); }
-		 * 
-		 * }
-		 */
+		for (Empresa empresa : listaFactorias) {
+			for (SerVivo serVivo : empresa.getTrabjadores()) {
+				demanda += serVivo.getNecesidadVital();
+			}
+
+		}
+
 		return demanda;
 	}
 
@@ -196,13 +192,14 @@ public class Estado {
 		}
 
 	}
+
 	public void nacer(int numeroDeNacimientos) {
-		
+
 		for (int i = 0; i < numeroDeNacimientos; i++) {
 			nacimiento();
 		}
-		this.numeroNacimientos=numeroDeNacimientos;
-		
+		this.numeroNacimientos = numeroDeNacimientos;
+
 	}
 
 	private void annadirDesempleados(List<SerVivo> despedidos) {
@@ -211,6 +208,35 @@ public class Estado {
 		}
 
 	}
-	
+
+	public void aumentarProduccion(int i) {
+		// TODO logica conectarBotones ParaUI
+
+	}
+
+	public void decrementarProduccion() {
+		// TODO logica conectarBotones ParaUI
+
+	}
+
+	public void contratar(int numeroContrataciones) {
+		// TODO
+	}
+
+	private void pagarPoblacion() {
+		// TODO
+	}
+
+	private void pasarTrabajadoresAJubilados() {
+		// TODO
+	}
+
+	private void pasarDesempleadosAJubilados() {
+		// TODO
+	}
+
+	private void pasarMenoresADesempleado() {
+		// TODO
+	}
 
 }

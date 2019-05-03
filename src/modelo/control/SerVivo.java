@@ -15,7 +15,7 @@ public class SerVivo {
 	private float edad;
 	private float ahorro;
 	private float esperanzaVida;
-	private EstadoSocial estadoSocial;
+	private Situacion situacion;
 	private boolean desempleado;
 
 	public SerVivo(String nombre, long identificador) {
@@ -73,15 +73,15 @@ public class SerVivo {
 	}
 
 	public boolean isAdulto() {
-		return EstadoSocial.ADULTO.equals(estadoSocial);
+		return Situacion.ADULTO.equals(situacion);
 	}
 
 	public boolean isJubilado() {
-		return EstadoSocial.JUBILADO.equals(estadoSocial);
+		return Situacion.JUBILADO.equals(situacion);
 	}
 
 	public boolean isVivo() {
-		return EstadoSocial.FALLECIDO.equals(estadoSocial);
+		return Situacion.FALLECIDO.equals(situacion);
 	}
 
 	public boolean isDesempleado() {
@@ -114,14 +114,14 @@ public class SerVivo {
 
 	private void comprobarEstado() {
 		if (edad > esperanzaVida) {
-			estadoSocial = EstadoSocial.FALLECIDO;
-		} else if ((estadoSocial == null || !isJubilado()) && edad >= Constantes.EDAD_JUBILADO) {
-			estadoSocial = EstadoSocial.JUBILADO;
+			situacion = Situacion.FALLECIDO;
+		} else if ((situacion == null || !isJubilado()) && edad >= Constantes.EDAD_JUBILADO) {
+			situacion = Situacion.JUBILADO;
 			necesidadVital /= 2;
-		} else if ((estadoSocial == null || !isAdulto()) && edad >= Constantes.EDAD_ADULTA) {
-			estadoSocial = EstadoSocial.ADULTO;
+		} else if ((situacion == null || !isAdulto()) && edad >= Constantes.EDAD_ADULTA) {
+			situacion = Situacion.ADULTO;
 		} else if(edad<Constantes.EDAD_ADULTA) {
-			estadoSocial = EstadoSocial.MENOR;
+			situacion = Situacion.MENOR;
 		}
 	}
 
