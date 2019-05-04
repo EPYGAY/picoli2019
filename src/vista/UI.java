@@ -42,13 +42,14 @@ public class UI extends JFrame {
 	private JTextField txtProduccionAnual;
 	private JTextField txtCapitalEstatal;
 	private JTextField txtCrecimientoAnual;
+//	private JTextField txtPorcentaje;
 
 	protected Comunicador comunicadorPoblacion, comunicadorEstadoLocal, comunicadorEstadoGlobal;
 	private JPanel pnlPoblacion;
 	private JPanel pnlEstadoLocal;
 	private JPanel pnlEstadoGlobal;
 	private JTextField txtDesempleados;
-	private JTextField textField;
+	protected JTextField txtPorcentaje;
 	protected JButton btnPasarUnPeriodo;
 	protected JButton btnIncrementarPorcentajeProduccion;
 	protected JButton btnDecrementarPorcentajeProduccion;
@@ -236,24 +237,21 @@ public class UI extends JFrame {
 		panel.add(panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-				textField = new JTextField();
-				textField.setAlignmentY(1.0f);
-				textField.setAlignmentX(1.0f);
-				panel_1.add(textField);
-				textField.setHorizontalAlignment(SwingConstants.CENTER);
-				textField.setForeground(new Color(255, 255, 255));
-				textField.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-				textField.setBackground(new Color(0, 153, 102));
-				textField.setFont(new Font("Tahoma", Font.BOLD, 20));
-				textField.setColumns(5);
+				txtPorcentaje = new JTextField();
+				txtPorcentaje.setAlignmentY(1.0f);
+				txtPorcentaje.setAlignmentX(1.0f);
+				txtPorcentaje.setEditable(false);
+				panel_1.add(txtPorcentaje);
+				txtPorcentaje.setHorizontalAlignment(SwingConstants.CENTER);
+				txtPorcentaje.setForeground(new Color(255, 255, 255));
+				txtPorcentaje.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+				txtPorcentaje.setBackground(new Color(0, 153, 102));
+				txtPorcentaje.setFont(new Font("Tahoma", Font.BOLD, 20));
+				txtPorcentaje.setColumns(5);
 						
 						JLabel label_3 = new JLabel("%");
 						label_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 						panel_1.add(label_3);
-				
-						JButton btnNewButton = new JButton("Validar Porcentaje");
-						panel_1.add(btnNewButton);
-						btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 
 		btnPasarUnPeriodo = new JButton("Pasar un periodo");
 		

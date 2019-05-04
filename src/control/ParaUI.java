@@ -3,6 +3,8 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTextField;
+
 import modelo.control.Estado;
 import modelo.vista.Datos;
 import modelo.vista.DatosEstadoGlobal;
@@ -13,6 +15,7 @@ import vista.UI;
 
 public class ParaUI extends UI {
 
+	private int variablePorcentaje;
 	private Estado estado;
 
 	public ParaUI() {
@@ -20,30 +23,33 @@ public class ParaUI extends UI {
 		getDatosEstado();
 		btnPasarUnPeriodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				estado.pasarPeriodo();
+				estado.setPorcentajeDemanda(variablePorcentaje);
 				getDatosEstado();
+				variablePorcentaje = 0;
+				txtPorcentaje.setText(String.valueOf(variablePorcentaje));
 			}
 		});
 		btnIncrementarPorcentajeProduccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				estado.aumentarProduccion(0/*Recoge el valor del TXT*/);
-				getDatosEstado();
+				variablePorcentaje = variablePorcentaje + 10;
+				txtPorcentaje.setText(String.valueOf(variablePorcentaje));
 			}
 		});
 		btnDecrementarPorcentajeProduccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				estado.decrementarProduccion();
-				getDatosEstado();
+				variablePorcentaje = variablePorcentaje - 10;
+				txtPorcentaje.setText(String.valueOf(variablePorcentaje));
 			}
 		});
 
 	}
-	
-	
+
 	public void getDatosEstado() {
-		DatosPoblacion datosPoblacion=getDatosPoblacion();
-		DatosEstadoLocal datosEstadoLocal=getDatosEstadoLocal();
-		DatosEstadoGlobal datosEstadoGlobal=getDatosEstadoGlbal();
+		DatosPoblacion datosPoblacion = getDatosPoblacion();
+		DatosEstadoLocal datosEstadoLocal = getDatosEstadoLocal();
+		DatosEstadoGlobal datosEstadoGlobal = getDatosEstadoGlbal();
 		setDatosEnElInterfazUsuario(datosPoblacion, datosEstadoLocal, datosEstadoGlobal);
 	}
 
@@ -52,29 +58,31 @@ public class ParaUI extends UI {
 		long menores = estado.getNumeroMenores();
 		long trabajadores = estado.getNumeroTrabajadores();
 		long jubilados = estado.getNumeroJubilados();
-		long desempleados=estado.getNumeroDesempleados();
+		long desempleados = estado.getNumeroDesempleados();
 		long nacimientos = estado.getNumeroNacimientos();
 		long fallecimientos = estado.getNumeroFallecimientos();
 		long jubilaciones = estado.getNumeroJubilaciones();
 		long nuevosTrabajadores = estado.getNumeroContrataciones();
-		DatosPoblacion datosPoblacion = new DatosPoblacion(habitantes, menores, trabajadores, jubilados,desempleados, nacimientos,
-				fallecimientos, jubilaciones, nuevosTrabajadores);
+		DatosPoblacion datosPoblacion = new DatosPoblacion(habitantes, menores, trabajadores, jubilados, desempleados,
+				nacimientos, fallecimientos, jubilaciones, nuevosTrabajadores);
 		return datosPoblacion;
 	}
 
 	private DatosEstadoLocal getDatosEstadoLocal() {
-		int grandes=estado.getNumeroEmpresa();
-		float porcentajeGrandes=estado.getPorcentajeGrandes();
-		DatosEstadoLocal datosEstadoLocal= new DatosEstadoLocal(grandes, porcentajeGrandes);
+		int grandes = estado.getNumeroEmpresa();
+		float porcentajeGrandes = estado.getPorcentajeGrandes();
+		DatosEstadoLocal datosEstadoLocal = new DatosEstadoLocal(grandes, porcentajeGrandes);
 		return datosEstadoLocal;
 	}
+
 	private DatosEstadoGlobal getDatosEstadoGlbal() {
 		double demanda = estado.getDemanda();
-		double produccion= estado.getProduccion();
-		double capitalEstatal=estado.getCapitalEstatal();
-		double crecimientoAnual=estado.getCrecimientoAnual();
-		DatosEstadoGlobal datosEstadoGlobal= new DatosEstadoGlobal(demanda, produccion, capitalEstatal, crecimientoAnual);
-	return datosEstadoGlobal;
+		double produccion = estado.getProduccion();
+		double capitalEstatal = estado.getCapitalEstatal();
+		double crecimientoAnual = estado.getCrecimientoAnual();
+		DatosEstadoGlobal datosEstadoGlobal = new DatosEstadoGlobal(demanda, produccion, capitalEstatal,
+				crecimientoAnual);
+		return datosEstadoGlobal;
 	}
 
 	public void setDatosEnElInterfazUsuario(DatosPoblacion datosPoblacion, DatosEstadoLocal datosEstadoLocal,

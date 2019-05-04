@@ -102,6 +102,9 @@ public class SerVivo {
 		return ahorro >= gasto;
 	}
 
+	public void setAhorro(float ahorro) {
+		this.ahorro = ahorro;
+	}
 	public String getNombre() {
 		return nombre;
 	}
