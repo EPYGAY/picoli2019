@@ -279,6 +279,7 @@ public class Estado {
 				SerVivo jubi = listaTrabajadores.get(i);
 				if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
 					listaJubilados.add(listaTrabajadores.pop());
+					numeroJubilaciones++;
 
 				}
 			}
@@ -291,6 +292,8 @@ public class Estado {
 			SerVivo jubi = listaDesempleados.get(i);
 			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
 				listaJubilados.add(listaDesempleados.pop());
+				numeroJubilaciones++;
+
 
 			}
 		}
