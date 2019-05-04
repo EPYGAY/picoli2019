@@ -274,11 +274,9 @@ public class Estado {
 
 			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
 
-			Iterator<SerVivo> trabajador = listaTrabajadores.iterator();
+			for (int i = 0; i < listaTrabajadores.size(); i++) {
 
-			while (trabajador.hasNext()) {
-
-				SerVivo jubi = trabajador.next();
+				SerVivo jubi = listaTrabajadores.get(i);
 				if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
 					listaJubilados.add(listaTrabajadores.pop());
 
@@ -288,24 +286,22 @@ public class Estado {
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		Iterator<SerVivo> desempleo = listaDesempleados.iterator();
+		for (int i = 0; i < listaDesempleados.size(); i++) {
 
-		while (desempleo.hasNext()) {
-
-			SerVivo jubi = desempleo.next();
+			SerVivo jubi = listaDesempleados.get(i);
 			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
 				listaJubilados.add(listaDesempleados.pop());
+
 			}
 		}
 
 	}
 
 	private void pasarMenoresADesempleado() {
-		Iterator<SerVivo> menores = listaMenores.iterator();
 
-		while (menores.hasNext()) {
+		for (int i = 0; i < listaMenores.size(); i++) {
 
-			SerVivo jubi = menores.next();
+			SerVivo jubi = listaMenores.get(i);
 			if (jubi.getEdad() == Constantes.EDAD_ADULTA) {
 				listaDesempleados.add(listaMenores.pop());
 			}
@@ -313,44 +309,43 @@ public class Estado {
 	}
 
 	public void morir() {
-		Iterator<SerVivo> jubilados = listaJubilados.iterator();
+		for (int i = 0; i < listaJubilados.size(); i++) {
 
-		while (jubilados.hasNext()) {
-
-			SerVivo jubi = jubilados.next();
+			SerVivo jubi = listaJubilados.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
 				listaJubilados.remove(jubi);
+				numeroFallecimientos ++;
 			}
 		}
-		Iterator<SerVivo> menores = listaMenores.iterator();
 
-		while (menores.hasNext()) {
 
-			SerVivo jubi = menores.next();
+		for (int i = 0; i < listaMenores.size(); i++) {
+
+			SerVivo jubi = listaMenores.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
 				listaMenores.remove(jubi);
+				numeroFallecimientos ++;
 			}
 		}
-		Iterator<SerVivo> desempleo = listaDesempleados.iterator();
 
-		while (desempleo.hasNext()) {
+		for (int i = 0; i < listaDesempleados.size(); i++) {
 
-			SerVivo jubi = desempleo.next();
+			SerVivo jubi = listaDesempleados.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
 				listaDesempleados.remove(jubi);
+				numeroFallecimientos ++;
 			}
 		}
 		for (Empresa factoria : listaFactorias) {
 
 			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
 
-			Iterator<SerVivo> trabajador = listaTrabajadores.iterator();
+			for (int i = 0; i < listaDesempleados.size(); i++) {
 
-			while (trabajador.hasNext()) {
-
-				SerVivo jubi = trabajador.next();
+				SerVivo jubi = listaDesempleados.get(i);
 				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
 					listaTrabajadores.remove(jubi);
+					numeroFallecimientos ++;
 
 				}
 			}
