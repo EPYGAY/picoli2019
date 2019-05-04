@@ -1,10 +1,14 @@
 package modelo.control;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 import javax.swing.plaf.InternalFrameUI;
+
+import org.junit.Test;
 
 import utilesglobal.Constantes;
 
@@ -24,6 +28,13 @@ public class Empresa {
 		float productividad=(numeroTrabjadores*100)/tamanoMaximo;
 		return productividad;
 	}
+	@Test
+	public void testcalcularProductividad() {
+		Empresa test =new Empresa();
+		float numeroTrabajadores= test.calcularProductividad();
+		assertEquals(0, numeroTrabajadores);
+	}
+	
 	public double getProduccion() {
 		double produccion= getNumeroTrabjadores()*Constantes.PRODUCCION_TRABAJADOR;
 		return produccion;
@@ -33,6 +44,7 @@ public class Empresa {
 	public void anadirTrabajador(SerVivo trabjador) {
 		trabjadores.push(trabjador);
 		}
+	
 		
 	public int getNumeroTrabjadores() {
 		return trabjadores.size();
@@ -42,6 +54,7 @@ public class Empresa {
 			trabajador.cobrar(salario);
 		}
 	}
+	
 	public Stack<SerVivo> getTrabjadores() {
 		return trabjadores;
 	}
@@ -58,4 +71,5 @@ public class Empresa {
 		trabajador.contratar();
 		trabjadores.push(trabajador);
 	}
+	
 }
