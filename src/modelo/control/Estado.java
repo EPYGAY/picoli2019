@@ -3,6 +3,7 @@ package modelo.control;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -215,13 +216,12 @@ public class Estado {
 			empresa.contratar(listaDesempleados.pop());
 		}
 	}
-	
 
-	
 	private void jubilarGente() {
 		pasarDesempleadosAJubilados();
 		pasarTrabajadoresAJubilados();
 	}
+
 	public void pasarPeriodo() {
 		numeroFallecimientos = 0;
 		numeroJubilaciones = 0;
@@ -235,9 +235,9 @@ public class Estado {
 		pagarPoblacion();
 		contratar(getNumeroContrataciones());
 		despedir(getNumeroContrataciones());
-		
+
 	}
-	
+
 	private void pasarAnnosAtodos() {
 		for (SerVivo serVivo : listaJubilados) {
 			serVivo.pasarAnno();
@@ -254,6 +254,7 @@ public class Estado {
 			}
 		}
 	}
+
 	public void aumentarProduccion(int i) {
 		// TODO logica conectarBotones ParaUI
 
@@ -263,26 +264,97 @@ public class Estado {
 		// TODO logica conectarBotones ParaUI
 
 	}
-	
+
 	private void pagarPoblacion() {
 		// TODO
 	}
 
 	private void pasarTrabajadoresAJubilados() {
-		// TODO
+		for (Empresa factoria : listaFactorias) {
+
+			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
+
+			Iterator<SerVivo> trabajador = listaTrabajadores.iterator();
+
+			while (trabajador.hasNext()) {
+
+				SerVivo jubi = trabajador.next();
+				if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
+					listaJubilados.add(listaTrabajadores.pop());
+
+				}
+			}
+		}
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		//TODO
+		Iterator<SerVivo> desempleo = listaDesempleados.iterator();
+
+		while (desempleo.hasNext()) {
+
+			SerVivo jubi = desempleo.next();
+			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
+				listaJubilados.add(listaDesempleados.pop());
+			}
+		}
+
 	}
 
 	private void pasarMenoresADesempleado() {
-		
+		Iterator<SerVivo> menores = listaMenores.iterator();
+
+		while (menores.hasNext()) {
+
+			SerVivo jubi = menores.next();
+			if (jubi.getEdad() == Constantes.EDAD_ADULTA) {
+				listaDesempleados.add(listaMenores.pop());
+			}
+		}
 	}
-	
+
 	public void morir() {
-		
+		Iterator<SerVivo> jubilados = listaJubilados.iterator();
+
+		while (jubilados.hasNext()) {
+
+			SerVivo jubi = jubilados.next();
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				listaJubilados.remove(jubi);
+			}
+		}
+		Iterator<SerVivo> menores = listaMenores.iterator();
+
+		while (menores.hasNext()) {
+
+			SerVivo jubi = menores.next();
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				listaMenores.remove(jubi);
+			}
+		}
+		Iterator<SerVivo> desempleo = listaDesempleados.iterator();
+
+		while (desempleo.hasNext()) {
+
+			SerVivo jubi = desempleo.next();
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				listaDesempleados.remove(jubi);
+			}
+		}
+		for (Empresa factoria : listaFactorias) {
+
+			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
+
+			Iterator<SerVivo> trabajador = listaTrabajadores.iterator();
+
+			while (trabajador.hasNext()) {
+
+				SerVivo jubi = trabajador.next();
+				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+					listaTrabajadores.remove(jubi);
+
+				}
+			}
+		}
 	}
-	
 
 }

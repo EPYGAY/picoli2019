@@ -15,7 +15,7 @@ public class Empresa {
 	
 	
 	//trabajador el primera que entra el ultimo que sale
-		private Stack<SerVivo> trabjadores= new Stack<SerVivo>();//LIFO
+		public Stack<SerVivo> trabjadores= new Stack<SerVivo>();//LIFO
 	public Empresa(){
 		
 	}

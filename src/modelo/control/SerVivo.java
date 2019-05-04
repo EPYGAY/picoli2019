@@ -16,6 +16,12 @@ public class SerVivo {
 	private float ahorro;
 	private float esperanzaVida;
 	private Situacion situacion;
+	public float getEdad() {
+		return edad;
+	}
+	public float getEsperanzaVida() {
+		return esperanzaVida;
+	}
 	private boolean desempleado;
 
 	public SerVivo(String nombre, long identificador) {
