@@ -13,7 +13,7 @@ import utilesglobal.Constantes;
 
 class SeresVivosTest {
 	
-	private List<SerVivo> personas;
 	
-
+	
+	
 }

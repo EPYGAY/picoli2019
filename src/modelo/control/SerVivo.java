@@ -134,8 +134,19 @@ public class SerVivo {
 	private void decrementarEsperanzaVida(float deficit) {
 		float decrementoVida = deficit / necesidadVital - Constantes.DECREMENTO_ESPERANZA;
 		esperanzaVida -= Math.abs(decrementoVida);
+		
 	}
+	
 	static class TestClass {
+		@Test
+		void testcobrar() {
+			SerVivo test = new SerVivo("Joaquin",1,30,0);
+			float salario=0;
+			salario=test.cobrar(720);
+			assertEquals(177.5f, salario);
+			salario=test.cobrar(0);
+			assertEquals(0, salario);
+		}
 		@Test
 		void testdecrementarEsperanzaVida() {
 			SerVivo uno = new SerVivo("Joaquin", 1, 30, 0);
@@ -143,10 +154,8 @@ public class SerVivo {
 			uno.decrementarEsperanzaVida(182.5f);
 			assertEquals(90, uno.esperanzaVida);
 		}
-		@Test
-		void testcobrar() {
-			
-		}
+		
+		
 		
 	}
 }
