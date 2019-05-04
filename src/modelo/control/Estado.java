@@ -7,10 +7,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.spi.TimeZoneNameProvider;
 
 import javax.sound.midi.Track;
 
 import org.junit.jupiter.api.Test;
+import org.omg.CORBA.NVList;
 
 import modelo.vista.DatosPoblacion;
 import utilesglobal.Constantes;
@@ -28,13 +30,19 @@ public class Estado {
 	private List<SerVivo> listaJubilados = new ArrayList<>();
 
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
+	
+	
 
 	public long numeroNacimientos = 0;
 	private long numeroFallecimientos = 0;
 	private long numeroJubilaciones = 0;
 	private long numeroContrataciones = 0;
-	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0;
-
+	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0,porcentajeDemanda=0;
+	
+	public void setPorcentajeDemanda(double porcentajeDemanda) {
+		this.porcentajeDemanda = porcentajeDemanda;
+	}
+	
 	public Estado() {
 		capitalEstatal = Constantes.CAPITAL_ESTADO_INICIAL;
 		condicionesIniciales();
@@ -146,8 +154,10 @@ public class Estado {
 			}
 
 		}
+		
+		double extra=demanda*(porcentajeDemanda/100);
 
-		return demanda;
+		return demanda+extra;
 	}
 
 	public int getNumeroEmpresa() {
@@ -255,18 +265,41 @@ public class Estado {
 		}
 	}
 
-	public void aumentarProduccion(int i) {
-		// TODO logica conectarBotones ParaUI
 
-	}
-
-	public void decrementarProduccion() {
-		// TODO logica conectarBotones ParaUI
-
-	}
 
 	private void pagarPoblacion() {
-		// TODO
+		double subencionMenor;
+		subencionMenor=getCapitalEstatal()/getNumeroMenores();
+		for (int i = 0; i < listaMenores.size(); i++) {
+			float nvMenor=listaMenores.get(i).getNecesidadVital();
+			if (subencionMenor<nvMenor) {
+				capitalEstatal=capitalEstatal-nvMenor;
+			}else {
+				capitalEstatal=capitalEstatal-subencionMenor;
+			}
+		}
+		double subencionDesempleo;
+		subencionDesempleo=getCapitalEstatal()/getNumeroDesempleados();
+		for (int i = 0; i < listaDesempleados.size(); i++) {
+			SerVivo desempleado = listaDesempleados.get(i);
+			float nvDesempleado=desempleado.getNecesidadVital();
+			if (desempleado.tieneAhorrosSuficientes()) {
+				desempleado.setAhorro(nvDesempleado);
+			}else {
+				capitalEstatal=capitalEstatal-subencionDesempleo;
+			}
+		}
+		double subencionJubilado;
+		subencionJubilado=getCapitalEstatal()/getNumeroJubilaciones();
+		for (int i = 0; i < listaJubilados.size(); i++) {
+			SerVivo jubilado = listaJubilados.get(i);
+			float nvJubilado=jubilado.getNecesidadVital()/2;
+			if (jubilado.tieneAhorrosSuficientes()) {
+				jubilado.setAhorro(nvJubilado);
+			}else {
+				capitalEstatal=capitalEstatal-subencionJubilado;
+			}
+		}
 	}
 
 	private void pasarTrabajadoresAJubilados() {
@@ -316,6 +349,7 @@ public class Estado {
 
 			SerVivo jubi = listaJubilados.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal=capitalEstatal+jubi.getAhorros();
 				listaJubilados.remove(jubi);
 				numeroFallecimientos ++;
 			}
@@ -335,6 +369,7 @@ public class Estado {
 
 			SerVivo jubi = listaDesempleados.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal=capitalEstatal+jubi.getAhorros();
 				listaDesempleados.remove(jubi);
 				numeroFallecimientos ++;
 			}
@@ -347,6 +382,7 @@ public class Estado {
 
 				SerVivo jubi = listaDesempleados.get(i);
 				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+					capitalEstatal=capitalEstatal+jubi.getAhorros();
 					listaTrabajadores.remove(jubi);
 					numeroFallecimientos ++;
 
