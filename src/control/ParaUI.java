@@ -25,8 +25,8 @@ public class ParaUI extends UI {
 			public void actionPerformed(ActionEvent arg0) {
 
 				estado.pasarPeriodo();
-				estado.setPorcentajeDemanda(variablePorcentaje);
 				getDatosEstado();
+				estado.setPorcentajeDemanda(variablePorcentaje);
 				variablePorcentaje = 0;
 				txtPorcentaje.setText(String.valueOf(variablePorcentaje));
 			}
