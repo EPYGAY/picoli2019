@@ -232,7 +232,7 @@ public class Estado {
 		numeroContrataciones = 0;
 		pasarAnnosAtodos();
 		nacer(getNumeroNacimientos());
-		morir(listaJubilados);
+		morir();
 		jubilarGente();
 		pasarMenoresADesempleado();
 		pagarPoblacion();
@@ -314,18 +314,53 @@ public class Estado {
 			}
 		}
 	}
-
-	public void morir(List<SerVivo> lista) {
 	
-		List<SerVivo> listaSerVivo = new ArrayList<>();
-		listaSerVivo.addAll(lista);
-		for (SerVivo serVivo : listaSerVivo) {
-			if (!serVivo.isVivo()) {
-				lista.remove(serVivo);
-				numeroFallecimientos++;
+		public void morir() {
+			for (int i = 0; i < listaJubilados.size(); i++) {
+
+				SerVivo jubi = listaJubilados.get(i);
+				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+					capitalEstatal=capitalEstatal+jubi.getAhorros();
+					listaJubilados.remove(jubi);
+					numeroFallecimientos ++;
+				}
+			}
+
+
+			for (int i = 0; i < listaMenores.size(); i++) {
+
+				SerVivo jubi = listaMenores.get(i);
+				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+					listaMenores.remove(jubi);
+					numeroFallecimientos ++;
+				}
+			}
+
+			for (int i = 0; i < listaDesempleados.size(); i++) {
+
+				SerVivo jubi = listaDesempleados.get(i);
+				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+					capitalEstatal=capitalEstatal+jubi.getAhorros();
+					listaDesempleados.remove(jubi);
+					numeroFallecimientos ++;
+				}
+			}
+			for (Empresa factoria : listaFactorias) {
+
+				Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
+
+				for (int i = 0; i < listaDesempleados.size(); i++) {
+
+					SerVivo jubi = listaDesempleados.get(i);
+					if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+						capitalEstatal=capitalEstatal+jubi.getAhorros();
+						listaTrabajadores.remove(jubi);
+						numeroFallecimientos ++;
+
+					}
+				}
 			}
 		}
-	}
 
 	@Test
 	void testCondicionesIniciales() {
