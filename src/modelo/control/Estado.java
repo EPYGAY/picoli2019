@@ -1,9 +1,13 @@
 package modelo.control;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+
+import org.junit.Test;
 
 import utilesglobal.Constantes;
 import utilesglobal.Utilies;
@@ -357,4 +361,14 @@ public class Estado {
 		}
 	}
 
+	@Test
+	void testCondicionesIniciales() {
+		assertEquals(getNumeroMenores(), Constantes.NUMERO_MENORES_INICIAL);
+		assertEquals(getNumeroJubilados(), Constantes.NUMERO_JUBILADOS_INICIAL);
+		int contador = 0;
+		for (Empresa factoria : listaFactorias) {
+			contador += factoria.getNumeroTrabjadores();
+		}
+		assertEquals(contador, Constantes.NUMERO_TRABAJADORES_INICIAL);
+	}
 }
