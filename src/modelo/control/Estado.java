@@ -250,7 +250,6 @@ public class Estado {
 			System.out.println("numero de contratados: "+numeroContrataciones);
 		}
 		
-		nacer(getNumeroNacimientos());
 		despedir(getNumeroDespidos());
 
 	}
