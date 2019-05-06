@@ -1,13 +1,13 @@
 package modelo.control;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import utilesglobal.Constantes;
 import utilesglobal.Utilies;
