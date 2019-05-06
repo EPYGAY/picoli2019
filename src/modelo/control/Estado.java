@@ -67,7 +67,7 @@ public class Estado {
 		}
 		listaFactorias.add(empresa);
 	}
-
+ 
 	public long getPoblacion() {
 		long menores = getNumeroMenores();
 		long jubilados = getNumeroJubilados();
@@ -387,15 +387,6 @@ public class Estado {
 		}
 	}
 
-	@Test
-	void testCondicionesIniciales() {
-		assertEquals(getNumeroMenores(), Constantes.NUMERO_MENORES_INICIAL);
-		assertEquals(getNumeroJubilados(), Constantes.NUMERO_JUBILADOS_INICIAL);
-		int contador = 0;
-		for (Empresa factoria : listaFactorias) {
-			contador += factoria.getNumeroTrabjadores();
-		}
-		assertEquals(contador, Constantes.NUMERO_TRABAJADORES_INICIAL);
-	}
+
 
 }

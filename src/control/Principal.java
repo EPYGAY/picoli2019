@@ -13,7 +13,7 @@ public class Principal {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				} 
 			}
 		});
 	}
