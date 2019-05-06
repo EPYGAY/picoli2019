@@ -149,7 +149,8 @@ public class Estado {
 		}
 
 		double extra = demanda * (porcentajeDemanda / 100);
-
+		porcentajeDemanda=0;
+		
 		return demanda + extra;
 	}
 
@@ -234,20 +235,18 @@ public class Estado {
 		numeroContrataciones = 0;
 		pasarAnnosAtodos();
 		calcularDemandaNecesaria();
-		
+
 		morir();
 		jubilarGente();
 		pasarMenoresADesempleado();
-		pagarPoblacion();		
-		if (numeroContrataciones>getNumeroDesempleados()) {
-			numeroNacimientos=numeroContrataciones-getNumeroDesempleados();
+		pagarPoblacion();
+		if (numeroContrataciones > getNumeroDesempleados()) {
+			numeroNacimientos = numeroContrataciones - getNumeroDesempleados();
 			nacer(numeroNacimientos);
-			System.out.println("numero de nacidos: "+numeroNacimientos);
 		}
-		numeroContrataciones=numeroContrataciones-numeroNacimientos;
-		if (numeroContrataciones>0) {
+		numeroContrataciones = numeroContrataciones - numeroNacimientos;
+		if (numeroContrataciones > 0) {
 			contratar(numeroContrataciones);
-			System.out.println("numero de contratados: "+numeroContrataciones);
 		}
 		
 		despedir(getNumeroDespidos());
@@ -288,7 +287,7 @@ public class Estado {
 		for (Empresa empresa : listaFactorias) {
 			empresa.pagarEmpleados();
 		}
-		
+
 	}
 
 	private void pasarTrabajadoresAJubilados() {
@@ -331,65 +330,62 @@ public class Estado {
 			}
 		}
 	}
-	
+
 	public void calcularDemandaNecesaria() {
 		double demandaNecesaria;
-		demandaNecesaria=capitalEstatal-getDemanda();
-		if (demandaNecesaria<0) {
-			numeroDespidos=(long) (demandaNecesaria/Constantes.PRODUCCION_TRABAJADOR);
-			System.out.println("numero de despidos"+numeroDespidos);
+		demandaNecesaria = produccionAnterior - getDemanda();
+		if (demandaNecesaria < 0) {
+			numeroDespidos = (long) (demandaNecesaria / Constantes.PRODUCCION_TRABAJADOR);
 		} else {
-		numeroContrataciones=(long) (demandaNecesaria/Constantes.PRODUCCION_TRABAJADOR);
-		System.out.println(numeroContrataciones);
+			numeroContrataciones = (long) (demandaNecesaria / Constantes.PRODUCCION_TRABAJADOR);
 		}
 	}
-	
-		public void morir() {
-			for (int i = 0; i < listaJubilados.size(); i++) {
 
-				SerVivo jubi = listaJubilados.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal=capitalEstatal+jubi.getAhorros();
-					listaJubilados.remove(jubi);
-					numeroFallecimientos ++;
-				}
+	public void morir() {
+		for (int i = 0; i < listaJubilados.size(); i++) {
+
+			SerVivo jubi = listaJubilados.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal = capitalEstatal + jubi.getAhorros();
+				listaJubilados.remove(jubi);
+				numeroFallecimientos++;
 			}
+		}
 
+		for (int i = 0; i < listaMenores.size(); i++) {
 
-			for (int i = 0; i < listaMenores.size(); i++) {
-
-				SerVivo jubi = listaMenores.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					listaMenores.remove(jubi);
-					numeroFallecimientos ++;
-				}
+			SerVivo jubi = listaMenores.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				listaMenores.remove(jubi);
+				numeroFallecimientos++;
 			}
+		}
+
+		for (int i = 0; i < listaDesempleados.size(); i++) {
+
+			SerVivo jubi = listaDesempleados.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal = capitalEstatal + jubi.getAhorros();
+				listaDesempleados.remove(jubi);
+				numeroFallecimientos++;
+			}
+		}
+		for (Empresa factoria : listaFactorias) {
+
+			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
 
 			for (int i = 0; i < listaDesempleados.size(); i++) {
 
 				SerVivo jubi = listaDesempleados.get(i);
 				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal=capitalEstatal+jubi.getAhorros();
-					listaDesempleados.remove(jubi);
-					numeroFallecimientos ++;
-				}
-			}
-			for (Empresa factoria : listaFactorias) {
+					capitalEstatal = capitalEstatal + jubi.getAhorros();
+					listaTrabajadores.remove(jubi);
+					numeroFallecimientos++;
 
-				Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-				for (int i = 0; i < listaDesempleados.size(); i++) {
-
-					SerVivo jubi = listaDesempleados.get(i);
-					if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-						capitalEstatal=capitalEstatal+jubi.getAhorros();
-						listaTrabajadores.remove(jubi);
-						numeroFallecimientos ++;
-
-					}
 				}
 			}
 		}
+	}
 
 	@Test
 	void testCondicionesIniciales() {
