@@ -388,6 +388,6 @@ public class Estado {
 			contador += factoria.getNumeroTrabjadores();
 		}
 		assertEquals(contador, Constantes.NUMERO_TRABAJADORES_INICIAL);
-	
+	}
 
 }
