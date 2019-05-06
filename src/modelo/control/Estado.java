@@ -1,13 +1,9 @@
 package modelo.control;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-
-import org.junit.Test;
 
 import utilesglobal.Constantes;
 import utilesglobal.Utilies;
@@ -271,7 +267,7 @@ public class Estado {
 		for (Empresa empresa : listaFactorias) {
 			empresa.pagarEmpleados();
 		}
-		
+
 	}
 
 	private void pasarTrabajadoresAJubilados() {
@@ -314,63 +310,51 @@ public class Estado {
 			}
 		}
 	}
-	
-		public void morir() {
-			for (int i = 0; i < listaJubilados.size(); i++) {
 
-				SerVivo jubi = listaJubilados.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal=capitalEstatal+jubi.getAhorros();
-					listaJubilados.remove(jubi);
-					numeroFallecimientos ++;
-				}
+	public void morir() {
+		for (int i = 0; i < listaJubilados.size(); i++) {
+
+			SerVivo jubi = listaJubilados.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal = capitalEstatal + jubi.getAhorros();
+				listaJubilados.remove(jubi);
+				numeroFallecimientos++;
 			}
+		}
 
+		for (int i = 0; i < listaMenores.size(); i++) {
 
-			for (int i = 0; i < listaMenores.size(); i++) {
-
-				SerVivo jubi = listaMenores.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					listaMenores.remove(jubi);
-					numeroFallecimientos ++;
-				}
+			SerVivo jubi = listaMenores.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				listaMenores.remove(jubi);
+				numeroFallecimientos++;
 			}
+		}
+
+		for (int i = 0; i < listaDesempleados.size(); i++) {
+
+			SerVivo jubi = listaDesempleados.get(i);
+			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
+				capitalEstatal = capitalEstatal + jubi.getAhorros();
+				listaDesempleados.remove(jubi);
+				numeroFallecimientos++;
+			}
+		}
+		for (Empresa factoria : listaFactorias) {
+
+			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
 
 			for (int i = 0; i < listaDesempleados.size(); i++) {
 
 				SerVivo jubi = listaDesempleados.get(i);
 				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal=capitalEstatal+jubi.getAhorros();
-					listaDesempleados.remove(jubi);
-					numeroFallecimientos ++;
-				}
-			}
-			for (Empresa factoria : listaFactorias) {
+					capitalEstatal = capitalEstatal + jubi.getAhorros();
+					listaTrabajadores.remove(jubi);
+					numeroFallecimientos++;
 
-				Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-				for (int i = 0; i < listaDesempleados.size(); i++) {
-
-					SerVivo jubi = listaDesempleados.get(i);
-					if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-						capitalEstatal=capitalEstatal+jubi.getAhorros();
-						listaTrabajadores.remove(jubi);
-						numeroFallecimientos ++;
-
-					}
 				}
 			}
 		}
-
-	@Test
-	void testCondicionesIniciales() {
-		assertEquals(getNumeroMenores(), Constantes.NUMERO_MENORES_INICIAL);
-		assertEquals(getNumeroJubilados(), Constantes.NUMERO_JUBILADOS_INICIAL);
-		int contador = 0;
-		for (Empresa factoria : listaFactorias) {
-			contador += factoria.getNumeroTrabjadores();
-		}
-		assertEquals(contador, Constantes.NUMERO_TRABAJADORES_INICIAL);
 	}
 
 }
