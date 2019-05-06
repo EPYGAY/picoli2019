@@ -28,6 +28,11 @@ public class Empresa {
 		float productividad=(numeroTrabjadores*100)/tamanoMaximo;
 		return productividad;
 	}
+	public void pagarEmpleados() {
+		for (SerVivo trabjador : trabjadores) {
+			trabjador.cobrar(salario);
+		}
+	}
 	@Test
 	public void testcalcularProductividad() {
 		Empresa test =new Empresa();

@@ -259,55 +259,23 @@ public class Estado {
 	}
 
 	private void pagarPoblacion() {
-		double subencionMenor;
-		subencionMenor = getCapitalEstatal() / getNumeroMenores();
-		for (int i = 0; i < listaMenores.size(); i++) {
-			float nvMenor = listaMenores.get(i).getNecesidadVital();
-			if (subencionMenor < nvMenor) {
-				capitalEstatal = capitalEstatal - nvMenor;
-			} else {
-				capitalEstatal = capitalEstatal - subencionMenor;
-			}
+		for (SerVivo serVivo : listaJubilados) {
+			serVivo.cobrar(Constantes.NV_INICIAL / 2);
 		}
-		double subencionDesempleo;
-		subencionDesempleo = getCapitalEstatal() / getNumeroDesempleados();
-		for (int i = 0; i < listaDesempleados.size(); i++) {
-			SerVivo desempleado = listaDesempleados.get(i);
-			float nvDesempleado = desempleado.getNecesidadVital();
-			if (desempleado.tieneAhorrosSuficientes()) {
-				desempleado.setAhorro(nvDesempleado);
-			} else {
-				capitalEstatal = capitalEstatal - subencionDesempleo;
-			}
+		for (SerVivo serVivo : listaDesempleados) {
+			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
-		double subencionJubilado;
-		subencionJubilado = getCapitalEstatal() / getNumeroJubilaciones();
-		for (int i = 0; i < listaJubilados.size(); i++) {
-			SerVivo jubilado = listaJubilados.get(i);
-			float nvJubilado = jubilado.getNecesidadVital() / 2;
-			if (jubilado.tieneAhorrosSuficientes()) {
-				jubilado.setAhorro(nvJubilado);
-			} else {
-				capitalEstatal = capitalEstatal - subencionJubilado;
-			}
+		for (SerVivo serVivo : listaMenores) {
+			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
+		for (Empresa empresa : listaFactorias) {
+			empresa.pagarEmpleados();
+		}
+		
 	}
 
 	private void pasarTrabajadoresAJubilados() {
-		/*for (Empresa factoria : listaFactorias) {
 
-			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-			for (int i = 0; i < listaTrabajadores.size(); i++) {
-
-				SerVivo jubi = listaTrabajadores.get(i);
-				if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
-					listaJubilados.add(listaTrabajadores.pop());
-					numeroJubilaciones++;
-
-				}
-			}
-		}*/
 		for (Empresa empresa : listaFactorias) {
 			List<SerVivo> lista = new ArrayList<>();
 			lista.addAll(empresa.getTrabjadores());
@@ -322,15 +290,7 @@ public class Estado {
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		/*for (int i = 0; i < listaDesempleados.size(); i++) {
 
-			SerVivo jubi = listaDesempleados.get(i);
-			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
-				listaJubilados.add(listaDesempleados.pop());
-				numeroJubilaciones++;
-
-			}
-		}*/
 		List<SerVivo> lista = new ArrayList<>();
 		lista.addAll(listaDesempleados);
 		for (SerVivo serVivo : lista) {
@@ -344,14 +304,7 @@ public class Estado {
 	}
 
 	private void pasarMenoresADesempleado() {
-/*
-		for (int i = 0; i < listaMenores.size(); i++) {
 
-			SerVivo jubi = listaMenores.get(i);
-			if (jubi.getEdad() == Constantes.EDAD_ADULTA) {
-				listaDesempleados.add(listaMenores.pop());
-			}
-		}*/
 		List<SerVivo> lista = new ArrayList<>();
 		lista.addAll(listaMenores);
 		for (SerVivo serVivo : lista) {
@@ -363,49 +316,7 @@ public class Estado {
 	}
 
 	public void morir(List<SerVivo> lista) {
-		/*for (int i = 0; i < listaJubilados.size(); i++) {
-
-			SerVivo jubi = listaJubilados.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				capitalEstatal = capitalEstatal + jubi.getAhorros();
-				listaJubilados.remove(jubi);
-				numeroFallecimientos++;
-			}
-		}
-
-		for (int i = 0; i < listaMenores.size(); i++) {
-
-			SerVivo jubi = listaMenores.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				listaMenores.remove(jubi);
-				numeroFallecimientos++;
-			}
-		}
-
-		for (int i = 0; i < listaDesempleados.size(); i++) {
-
-			SerVivo jubi = listaDesempleados.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				capitalEstatal = capitalEstatal + jubi.getAhorros();
-				listaDesempleados.remove(jubi);
-				numeroFallecimientos++;
-			}
-		}
-		for (Empresa factoria : listaFactorias) {
-
-			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-			for (int i = 0; i < listaDesempleados.size(); i++) {
-
-				SerVivo jubi = listaDesempleados.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal = capitalEstatal + jubi.getAhorros();
-					listaTrabajadores.remove(jubi);
-					numeroFallecimientos++;
-
-				}
-			}
-		}*/
+	
 		List<SerVivo> listaSerVivo = new ArrayList<>();
 		listaSerVivo.addAll(lista);
 		for (SerVivo serVivo : listaSerVivo) {
