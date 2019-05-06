@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Ignore;
@@ -52,5 +53,15 @@ class EstadoTest {
 		assertEquals(Constantes.NUMERO_JUBILADOS_INICIAL * 2, estado.getNumeroJubilados());
 		assertEquals(Constantes.NUMERO_TRABAJADORES_INICIAL * 2, estado.getNumeroTrabajadores());
 	}
+	
+	@Test
+	void contratar() { 
+		estado.despedir(30);
+		estado.contratar(20);
+		assertEquals(90, estado.getNumeroTrabajadores());
+		assertEquals(10, estado.getNumeroDesempleados());
+		} 
+	}
+	
 
-}
+

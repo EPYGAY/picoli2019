@@ -221,10 +221,10 @@ public class Estado {
 			listaDesempleados.removeFirst();
 		}
 		this.numeroContrataciones = numeroContrataciones;
-	}
+	} 
 
 	private void jubilarGente() {
-		pasarDesempleadosAJubilados();
+		pasarDesempleadosAJubilados( );
 		pasarTrabajadoresAJubilados();
 	}
 
