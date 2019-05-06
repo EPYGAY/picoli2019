@@ -225,6 +225,7 @@ public class Estado {
 		for (int i = 0; i < numeroContrataciones; i++) {
 			empresa.contratar(listaDesempleados.pop());
 		}
+		this.numeroContrataciones = numeroContrataciones;
 	}
 
 	private void jubilarGente() {
@@ -239,7 +240,7 @@ public class Estado {
 		numeroContrataciones = 0;
 		pasarAnnosAtodos();
 		nacer(getNumeroNacimientos());
-		morir();
+		morir(listaJubilados);
 		jubilarGente();
 		pasarMenoresADesempleado();
 		pagarPoblacion();
@@ -303,7 +304,7 @@ public class Estado {
 	}
 
 	private void pasarTrabajadoresAJubilados() {
-		for (Empresa factoria : listaFactorias) {
+		/*for (Empresa factoria : listaFactorias) {
 
 			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
 
@@ -316,11 +317,22 @@ public class Estado {
 
 				}
 			}
+		}*/
+		for (Empresa empresa : listaFactorias) {
+			List<SerVivo> lista = new ArrayList<>();
+			lista.addAll(empresa.getTrabjadores());
+			for (SerVivo serVivo : lista) {
+				if (serVivo.isJubilado()) {
+					numeroJubilaciones++;
+					listaJubilados.add(serVivo);
+					empresa.eliminarTrabajador(serVivo);
+				}
+			}
 		}
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		for (int i = 0; i < listaDesempleados.size(); i++) {
+		/*for (int i = 0; i < listaDesempleados.size(); i++) {
 
 			SerVivo jubi = listaDesempleados.get(i);
 			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
@@ -329,23 +341,40 @@ public class Estado {
 
 
 			}
+		}*/
+		List<SerVivo> lista = new ArrayList<>();
+		lista.addAll(listaDesempleados);
+		for (SerVivo serVivo : lista) {
+			if (!serVivo.isJubilado()) {
+				numeroJubilaciones++;
+				listaJubilados.add(serVivo);
+				listaDesempleados.remove(serVivo);
+			}
 		}
 
 	}
 
 	private void pasarMenoresADesempleado() {
-
+/*
 		for (int i = 0; i < listaMenores.size(); i++) {
 
 			SerVivo jubi = listaMenores.get(i);
 			if (jubi.getEdad() == Constantes.EDAD_ADULTA) {
 				listaDesempleados.add(listaMenores.pop());
 			}
+		}*/
+		List<SerVivo> lista = new ArrayList<>();
+		lista.addAll(listaMenores);
+		for (SerVivo serVivo : lista) {
+			if (serVivo.isAdulto()) {
+				listaDesempleados.addLast(serVivo);
+				listaMenores.remove(serVivo);
+			}
 		}
 	}
 
-	public void morir() {
-		for (int i = 0; i < listaJubilados.size(); i++) {
+	public void morir(List<SerVivo> lista) {
+		/*for (int i = 0; i < listaJubilados.size(); i++) {
 
 			SerVivo jubi = listaJubilados.get(i);
 			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
@@ -387,6 +416,14 @@ public class Estado {
 					numeroFallecimientos ++;
 
 				}
+			}
+		}*/
+		List<SerVivo> listaSerVivo = new ArrayList<>();
+		listaSerVivo.addAll(lista);
+		for (SerVivo serVivo : listaSerVivo) {
+			if (!serVivo.isVivo()) {
+				lista.remove(serVivo);
+				numeroFallecimientos++;
 			}
 		}
 	}
