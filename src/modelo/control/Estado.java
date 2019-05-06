@@ -1,20 +1,14 @@
 package modelo.control;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-import java.util.spi.TimeZoneNameProvider;
 
-import javax.sound.midi.Track;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
-import org.omg.CORBA.NVList;
-
-import modelo.vista.DatosPoblacion;
 import utilesglobal.Constantes;
 import utilesglobal.Utilies;
 
@@ -30,19 +24,17 @@ public class Estado {
 	private List<SerVivo> listaJubilados = new ArrayList<>();
 
 	private Stack<Empresa> listaFactorias = new Stack<Empresa>();// LIFO
-	
-	
 
 	public long numeroNacimientos = 0;
 	private long numeroFallecimientos = 0;
 	private long numeroJubilaciones = 0;
 	private long numeroContrataciones = 0;
-	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0,porcentajeDemanda=0;
-	
+	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0, porcentajeDemanda = 0;
+
 	public void setPorcentajeDemanda(double porcentajeDemanda) {
 		this.porcentajeDemanda = porcentajeDemanda;
 	}
-	
+
 	public Estado() {
 		capitalEstatal = Constantes.CAPITAL_ESTADO_INICIAL;
 		condicionesIniciales();
@@ -154,10 +146,10 @@ public class Estado {
 			}
 
 		}
-		
-		double extra=demanda*(porcentajeDemanda/100);
 
-		return demanda+extra;
+		double extra = demanda * (porcentajeDemanda / 100);
+
+		return demanda + extra;
 	}
 
 	public int getNumeroEmpresa() {
@@ -266,11 +258,9 @@ public class Estado {
 		}
 	}
 
-
-
 	private void pagarPoblacion() {
 		for (SerVivo serVivo : listaJubilados) {
-			serVivo.cobrar(Constantes.NV_INICIAL);
+			serVivo.cobrar(Constantes.NV_INICIAL / 2);
 		}
 		for (SerVivo serVivo : listaDesempleados) {
 			serVivo.cobrar(Constantes.NV_INICIAL);
@@ -279,26 +269,13 @@ public class Estado {
 			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
 		for (Empresa empresa : listaFactorias) {
-			empresa.pagarEmpleado();
+			empresa.pagarEmpleados();
 		}
 		
 	}
 
 	private void pasarTrabajadoresAJubilados() {
-		/*for (Empresa factoria : listaFactorias) {
 
-			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-			for (int i = 0; i < listaTrabajadores.size(); i++) {
-
-				SerVivo jubi = listaTrabajadores.get(i);
-				if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
-					listaJubilados.add(listaTrabajadores.pop());
-					numeroJubilaciones++;
-
-				}
-			}
-		}*/
 		for (Empresa empresa : listaFactorias) {
 			List<SerVivo> lista = new ArrayList<>();
 			lista.addAll(empresa.getTrabjadores());
@@ -313,16 +290,7 @@ public class Estado {
 	}
 
 	private void pasarDesempleadosAJubilados() {
-		/*for (int i = 0; i < listaDesempleados.size(); i++) {
 
-			SerVivo jubi = listaDesempleados.get(i);
-			if (jubi.getEdad() == Constantes.EDAD_JUBILADO) {
-				listaJubilados.add(listaDesempleados.pop());
-				numeroJubilaciones++;
-
-
-			}
-		}*/
 		List<SerVivo> lista = new ArrayList<>();
 		lista.addAll(listaDesempleados);
 		for (SerVivo serVivo : lista) {
@@ -336,14 +304,7 @@ public class Estado {
 	}
 
 	private void pasarMenoresADesempleado() {
-/*
-		for (int i = 0; i < listaMenores.size(); i++) {
 
-			SerVivo jubi = listaMenores.get(i);
-			if (jubi.getEdad() == Constantes.EDAD_ADULTA) {
-				listaDesempleados.add(listaMenores.pop());
-			}
-		}*/
 		List<SerVivo> lista = new ArrayList<>();
 		lista.addAll(listaMenores);
 		for (SerVivo serVivo : lista) {
@@ -355,50 +316,7 @@ public class Estado {
 	}
 
 	public void morir(List<SerVivo> lista) {
-		/*for (int i = 0; i < listaJubilados.size(); i++) {
-
-			SerVivo jubi = listaJubilados.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				capitalEstatal=capitalEstatal+jubi.getAhorros();
-				listaJubilados.remove(jubi);
-				numeroFallecimientos ++;
-			}
-		}
-
-
-		for (int i = 0; i < listaMenores.size(); i++) {
-
-			SerVivo jubi = listaMenores.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				listaMenores.remove(jubi);
-				numeroFallecimientos ++;
-			}
-		}
-
-		for (int i = 0; i < listaDesempleados.size(); i++) {
-
-			SerVivo jubi = listaDesempleados.get(i);
-			if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-				capitalEstatal=capitalEstatal+jubi.getAhorros();
-				listaDesempleados.remove(jubi);
-				numeroFallecimientos ++;
-			}
-		}
-		for (Empresa factoria : listaFactorias) {
-
-			Stack<SerVivo> listaTrabajadores = factoria.trabjadores;
-
-			for (int i = 0; i < listaDesempleados.size(); i++) {
-
-				SerVivo jubi = listaDesempleados.get(i);
-				if (jubi.getEdad() == jubi.getEsperanzaVida()) {
-					capitalEstatal=capitalEstatal+jubi.getAhorros();
-					listaTrabajadores.remove(jubi);
-					numeroFallecimientos ++;
-
-				}
-			}
-		}*/
+	
 		List<SerVivo> listaSerVivo = new ArrayList<>();
 		listaSerVivo.addAll(lista);
 		for (SerVivo serVivo : listaSerVivo) {
@@ -407,6 +325,17 @@ public class Estado {
 				numeroFallecimientos++;
 			}
 		}
+	}
+
+	@Test
+	void testCondicionesIniciales() {
+		assertEquals(getNumeroMenores(), Constantes.NUMERO_MENORES_INICIAL);
+		assertEquals(getNumeroJubilados(), Constantes.NUMERO_JUBILADOS_INICIAL);
+		int contador = 0;
+		for (Empresa factoria : listaFactorias) {
+			contador += factoria.getNumeroTrabjadores();
+		}
+		assertEquals(contador, Constantes.NUMERO_TRABAJADORES_INICIAL);
 	}
 
 }
