@@ -269,38 +269,19 @@ public class Estado {
 
 
 	private void pagarPoblacion() {
-		double subencionMenor;
-		subencionMenor=getCapitalEstatal()/getNumeroMenores();
-		for (int i = 0; i < listaMenores.size(); i++) {
-			float nvMenor=listaMenores.get(i).getNecesidadVital();
-			if (subencionMenor<nvMenor) {
-				capitalEstatal=capitalEstatal-nvMenor;
-			}else {
-				capitalEstatal=capitalEstatal-subencionMenor;
-			}
+		for (SerVivo serVivo : listaJubilados) {
+			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
-		double subencionDesempleo;
-		subencionDesempleo=getCapitalEstatal()/getNumeroDesempleados();
-		for (int i = 0; i < listaDesempleados.size(); i++) {
-			SerVivo desempleado = listaDesempleados.get(i);
-			float nvDesempleado=desempleado.getNecesidadVital();
-			if (desempleado.tieneAhorrosSuficientes()) {
-				desempleado.setAhorro(nvDesempleado);
-			}else {
-				capitalEstatal=capitalEstatal-subencionDesempleo;
-			}
+		for (SerVivo serVivo : listaDesempleados) {
+			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
-		double subencionJubilado;
-		subencionJubilado=getCapitalEstatal()/getNumeroJubilaciones();
-		for (int i = 0; i < listaJubilados.size(); i++) {
-			SerVivo jubilado = listaJubilados.get(i);
-			float nvJubilado=jubilado.getNecesidadVital()/2;
-			if (jubilado.tieneAhorrosSuficientes()) {
-				jubilado.setAhorro(nvJubilado);
-			}else {
-				capitalEstatal=capitalEstatal-subencionJubilado;
-			}
+		for (SerVivo serVivo : listaMenores) {
+			serVivo.cobrar(Constantes.NV_INICIAL);
 		}
+		for (Empresa empresa : listaFactorias) {
+			empresa.pagarEmpleado();
+		}
+		
 	}
 
 	private void pasarTrabajadoresAJubilados() {
