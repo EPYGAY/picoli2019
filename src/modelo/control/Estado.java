@@ -29,6 +29,7 @@ public class Estado {
 	private long numeroFallecimientos = 0;
 	private long numeroJubilaciones = 0;
 	private long numeroContrataciones = 0;
+	private long numeroDespidos = 0;
 	private double capitalEstatal = 0, crecimientoAnual = 0, produccionAnterior = 0, porcentajeDemanda = 0;
 
 	public void setPorcentajeDemanda(double porcentajeDemanda) {
@@ -215,7 +216,8 @@ public class Estado {
 	public void contratar(long numeroContrataciones) {
 		Empresa empresa = listaFactorias.peek();
 		for (int i = 0; i < numeroContrataciones; i++) {
-			empresa.contratar(listaDesempleados.pop());
+			empresa.contratar(listaDesempleados.getFirst());
+			listaDesempleados.removeFirst();
 		}
 		this.numeroContrataciones = numeroContrataciones;
 	}
@@ -231,14 +233,30 @@ public class Estado {
 		numeroNacimientos = 0;
 		numeroContrataciones = 0;
 		pasarAnnosAtodos();
-		nacer(getNumeroNacimientos());
+		calcularDemandaNecesaria();
+		
 		morir();
 		jubilarGente();
 		pasarMenoresADesempleado();
-		pagarPoblacion();
-		contratar(getNumeroContrataciones());
-		despedir(getNumeroContrataciones());
+		pagarPoblacion();		
+		if (numeroContrataciones>getNumeroDesempleados()) {
+			numeroNacimientos=numeroContrataciones-getNumeroDesempleados();
+			nacer(numeroNacimientos);
+			System.out.println("numero de nacidos: "+numeroNacimientos);
+		}
+		numeroContrataciones=numeroContrataciones-numeroNacimientos;
+		if (numeroContrataciones>0) {
+			contratar(numeroContrataciones);
+			System.out.println("numero de contratados: "+numeroContrataciones);
+		}
+		
+		nacer(getNumeroNacimientos());
+		despedir(getNumeroDespidos());
 
+	}
+
+	public long getNumeroDespidos() {
+		return numeroDespidos;
 	}
 
 	private void pasarAnnosAtodos() {
@@ -312,6 +330,18 @@ public class Estado {
 				listaDesempleados.addLast(serVivo);
 				listaMenores.remove(serVivo);
 			}
+		}
+	}
+	
+	public void calcularDemandaNecesaria() {
+		double demandaNecesaria;
+		demandaNecesaria=capitalEstatal-getDemanda();
+		if (demandaNecesaria<0) {
+			numeroDespidos=(long) (demandaNecesaria/Constantes.PRODUCCION_TRABAJADOR);
+			System.out.println("numero de despidos"+numeroDespidos);
+		} else {
+		numeroContrataciones=(long) (demandaNecesaria/Constantes.PRODUCCION_TRABAJADOR);
+		System.out.println(numeroContrataciones);
 		}
 	}
 	

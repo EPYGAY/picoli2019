@@ -74,7 +74,7 @@ public class Empresa {
 	}
 	public void contratar(SerVivo trabajador) {
 		trabajador.contratar();
-		trabjadores.push(trabajador);
+		trabjadores.add(trabajador);
 	}
 	public void eliminarTrabajador(SerVivo serVivo) {
 		trabjadores.remove(serVivo);
